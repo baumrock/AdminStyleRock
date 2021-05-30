@@ -97,7 +97,9 @@ Thanks to UIkit it is easy to change the base font. For this example we'll use h
 $config->styles->add('https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap');
 ```
 
-And then set the correct UIkit variable - so add this to your style:
+For production you might want to download the font instead of adding it via google fonts.
+
+Next, we set the correct UIkit variable - so add this to your style:
 
 ```LESS
 @global-font-family: 'Sigmar One', cursive;
