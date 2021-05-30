@@ -2,6 +2,8 @@
 
 ProcessWire admin style for AdminThemeUikit - note that `style` means that this module only applies changes to the CSS of the admin `theme`. The `theme` is responsible for creating all the markup and business logic.
 
+For discussion head over to the support forum thread: https://processwire.com/talk/topic/25668-adminthemeuikit-rock-style/
+
 ## How AdminThemeUikit styles work
 
 AdminThemeUikit uses UIkit as CSS framework. See https://getuikit.com/ docs (especially https://getuikit.com/docs/less) to get familiar with UIkit. It then adds several customizations to that CSS via less files that are located in the folder `uikit-pw` ([github link](https://github.com/processwire/processwire/tree/dev/wire/modules/AdminTheme/AdminThemeUikit/uikit-pw)).
