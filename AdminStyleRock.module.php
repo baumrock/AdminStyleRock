@@ -25,8 +25,8 @@ class AdminStyleRock extends WireData implements Module {
     $config = $this->wire()->config;
     $config->AdminThemeUikit = [
       'style' => __DIR__."/style/rock.less",
-      'recompile' => true,
-      'compress' => false,
+      'recompile' => $config->debug,
+      'compress' => !$config->debug,
     ];
   }
 
