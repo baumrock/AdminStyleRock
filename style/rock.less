@@ -1,6 +1,11 @@
 // ##############################################################
 // theme variables to easily style this theme
 // use these variables in /site/templates/admin.less to customize
+
+// main color for this style
+// at the moment this should be a dark color with good contrast
+// to white. at a later point it might be possible to extend this
+// style so that it adapts contrasting colors automatically
 @rock-primary: #1c9e68;
 // ##############################################################
 
@@ -38,8 +43,13 @@
 /* ##### Notices ##### */
 
   // remove spacing: https://i.imgur.com/l6TJIIJ.png
-  .pw-notices, .pw-notices li { margin: 0; }
-  .pw-notices { margin-top: -2px; }
+  .pw-notices {
+    margin: 0;
+    > li {
+      margin: 0;
+      margin-top: 1px;
+    }
+  }
 
   // vex dialogs
   .vex-dialog-button.vex-dialog-button-primary {
