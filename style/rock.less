@@ -9,17 +9,12 @@
 @rock-primary: #1c9e68;
 // ##############################################################
 
-// link theme variable to uikit variables
-@global-primary-background: @rock-primary;
-@global-link-color: @rock-primary;
-@global-link-hover-color: lighten(@rock-primary, 5%);
-@base-selection-background: @rock-primary;
+/* ##### Main color ##### */
 
-/**
- * Custom modification to tweak several spots of the admin when using this theme.
- * I think these should likely be part of the master theme and then reno & co
- * should just override the spots that are necessary to override
- */
+  @global-primary-background: @rock-primary;
+  @global-link-color: @rock-primary;
+  @global-link-hover-color: lighten(@rock-primary, 5%);
+  @base-selection-background: @rock-primary;
 
 /* ##### PageEdit ##### */
 
@@ -35,9 +30,15 @@
     border-left: 3px solid @global-secondary-background;
   }
 
-  // buttons
+/* ##### Buttons ##### */
+
   button.ui-button.ui-priority-secondary {
     background-color: lighten(@global-color, 20%) !important;
+  }
+  
+  // vex dialogs
+  .vex-dialog-button.vex-dialog-button-primary {
+    background: @global-primary-background !important;
   }
 
 /* ##### Notices ##### */
@@ -51,11 +52,6 @@
     }
   }
 
-  // vex dialogs
-  .vex-dialog-button.vex-dialog-button-primary {
-    background: @global-primary-background !important;
-  }
-
 /* ##### Datepicker ##### */
 
   // datepicker
@@ -64,5 +60,6 @@
   @pw-datepicker-background: @background-primary-background;
 
 /* ##### Offcanvas ##### */
+
   // change offcanvas background from secondary to primary
   @offcanvas-bar-background: @background-primary-background;
