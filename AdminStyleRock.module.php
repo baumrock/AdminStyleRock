@@ -16,6 +16,7 @@ class AdminStyleRock extends WireData implements Module {
       'icon' => 'css3',
       'requires' => [
         'ProcessWire>=3.0.178',
+        'Less',
       ],
       'installs' => [],
     ];
