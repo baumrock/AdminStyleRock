@@ -24,18 +24,18 @@ class AdminStyleRock extends WireData implements Module {
 
   public function init() {
     $config = $this->wire()->config;
+    $min = !$config->debug;
     
     $style = __DIR__."/style/rock.less";
-    $min = !$config->debug;
     $compiled = $config->paths->assets."admin";
     if($min) $compiled .= ".min.css";
     else $compiled .= ".css";
     
     $config->AdminThemeUikit = [
       'style' => $style,
-      'recompile' => @(filemtime($style) > filemtime($compiled)),
       'compress' => $min,
       'customCssFile' => $compiled,
+      'recompile' => @(filemtime($style) > filemtime($compiled)),
     ];
   }
 
