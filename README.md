@@ -6,6 +6,7 @@ Preface
 
 1. It provides docs for the rock style
 2. It helps developing and maintaining the rock style
+3. It might serve as an example how to share your own styles with the community in a modular way instead of sharing admin.less files that can't be updated/monitored by the PW upgrades module.
 
 This means you can submit issues or pull requests to this repository and I can check them easily. Once we have an improved version of the rock style we can as Ryan to pull the changes into the PW Core.
 
