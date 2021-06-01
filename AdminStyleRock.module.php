@@ -10,7 +10,7 @@ class AdminStyleRock extends WireData implements Module {
     return [
       'title' => 'AdminStyleRock',
       'version' => '0.0.1',
-      'summary' => 'ProcessWire admin style for AdminThemeUikit',
+      'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => true,
       'singular' => true,
       'icon' => 'css3',
