@@ -1,4 +1,4 @@
-// v1.0
+// v1.1
 
 // ##############################################################
 // theme variables to easily style this theme
@@ -37,13 +37,20 @@
   button.ui-button.ui-priority-secondary {
     background-color: lighten(@global-color, 20%) !important;
   }
-  
+
   // vex dialogs
   .vex-dialog-button.vex-dialog-button-primary {
     background: @global-primary-background !important;
   }
 
 /* ##### Notices ##### */
+
+  // primary alert should be neutral grey instead of primary color
+  // this prevents red primary alert when rock-primary color is red
+  // which would be confusing as it would be the same for error messages!
+  // see https://i.imgur.com/dxhDz81.png
+  @alert-primary-background: @global-muted-background;
+  @alert-primary-color: @global-color;
 
   // remove spacing: https://i.imgur.com/l6TJIIJ.png
   .pw-notices {
