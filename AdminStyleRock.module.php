@@ -9,7 +9,7 @@ class AdminStyleRock extends WireData implements Module {
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '0.0.1',
+      'version' => '0.0.2',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => true,
       'singular' => true,
@@ -25,18 +25,25 @@ class AdminStyleRock extends WireData implements Module {
   public function init() {
     $config = $this->wire()->config;
     $min = !$config->debug;
-    
+
     $style = __DIR__."/style/rock.less";
     $compiled = $config->paths->assets."admin";
     if($min) $compiled .= ".min.css";
     else $compiled .= ".css";
-    
+
     $config->AdminThemeUikit = [
       'style' => $style,
       'compress' => $min,
       'customCssFile' => $compiled,
       'recompile' => @(filemtime($style) > filemtime($compiled)),
     ];
+  }
+
+  public function ___install() {
+    $theme = $this->wire->modules->get('AdminThemeUikit');
+    $this->wire->modules->saveConfig($theme, [
+      'logoURL' => $this->wire->config->urls($this)."baumrock.svg",
+    ]);
   }
 
 }
