@@ -26,7 +26,7 @@ class AdminStyleRock extends WireData implements Module {
     $config = $this->wire()->config;
     $min = !$config->debug;
 
-    $style = __DIR__."/style/rock.less";
+    $style = $config->paths($this)."style/rock.less";
     $compiled = $config->paths->assets."admin";
     if($min) $compiled .= ".min.css";
     else $compiled .= ".css";
