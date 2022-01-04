@@ -11,7 +11,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '0.0.4',
+      'version' => '0.0.5',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => true,
       'singular' => true,
@@ -67,6 +67,15 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
       'notes' => 'eg #00ff00 or rgba(0,0,0,1)',
       'value' => $this->rockprimary,
       'label' => '@rock-primary',
+    ]);
+
+    // link to change logo url
+    $url = $this->wire->pages->get(2)->url."module/edit?name=AdminThemeUikit";
+    $inputfields->add([
+      'type' => 'markup',
+      'label' => 'Change Logo',
+      'value' => "<a href='$url' class='ui-button'>Change the logo url in
+        'Masthead + navigation' section of AdminThemeUikit</a>",
     ]);
 
     return $inputfields;
