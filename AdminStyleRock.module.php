@@ -4,12 +4,14 @@
  * @license Licensed under MIT
  * @link https://www.baumrock.com
  */
-class AdminStyleRock extends WireData implements Module {
+class AdminStyleRock extends WireData implements Module, ConfigurableModule {
+
+  public $rockprimary;
 
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '0.0.3',
+      'version' => '0.0.4',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => true,
       'singular' => true,
@@ -31,12 +33,18 @@ class AdminStyleRock extends WireData implements Module {
     if($min) $compiled .= ".min.css";
     else $compiled .= ".css";
 
+    // prepare less vars
+    $vars = [];
+    if($this->rockprimary) $vars = ['rock-primary' => $this->rockprimary];
+
     $config->AdminThemeUikit = [
       'style' => $style,
       'compress' => $min,
       'customCssFile' => $compiled,
       'recompile' => @(filemtime($style) > filemtime($compiled)),
+      'vars' => $vars,
     ];
+    
   }
 
   public function ___install() {
@@ -44,6 +52,24 @@ class AdminStyleRock extends WireData implements Module {
     $this->wire->modules->saveConfig($theme, [
       'logoURL' => $this->wire->config->urls($this)."baumrock.svg",
     ]);
+  }
+
+  /**
+  * Config inputfields
+  * @param InputfieldWrapper $inputfields
+  */
+  public function getModuleConfigInputfields($inputfields) {
+
+    // add main color
+    $inputfields->add([
+      'type' => 'text',
+      'name' => 'rockprimary',
+      'notes' => 'eg #00ff00 or rgba(0,0,0,1)',
+      'value' => $this->rockprimary,
+      'label' => '@rock-primary',
+    ]);
+
+    return $inputfields;
   }
 
 }
