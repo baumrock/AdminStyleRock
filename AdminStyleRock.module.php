@@ -11,7 +11,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '0.0.5',
+      'version' => '0.0.6',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => true,
       'singular' => true,
@@ -44,14 +44,15 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
       'recompile' => @(filemtime($style) > filemtime($compiled)),
       'vars' => $vars,
     ];
-    
+
   }
 
   public function ___install() {
-    $theme = $this->wire->modules->get('AdminThemeUikit');
-    $this->wire->modules->saveConfig($theme, [
-      'logoURL' => $this->wire->config->urls($this)."baumrock.svg",
-    ]);
+    $m = "AdminThemeUikit";
+    $modules = $this->wire->modules;
+    $data = $modules->getConfig($m);
+    $data['logoURL'] = $this->wire->config->urls($this)."baumrock.svg";
+    $modules->saveConfig($m, $data);
   }
 
   /**
