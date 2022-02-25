@@ -11,7 +11,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '0.0.8',
+      'version' => '0.0.9',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => 'template=admin',
       'singular' => true,
