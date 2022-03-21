@@ -1,6 +1,17 @@
 # AdminStyleRock
 
-Preface
+Easily style your ProcessWire backend with two simple settings:
+
+![img](https://i.imgur.com/ETCC1CA.png)
+
+Or via RockMigrations:
+
+```php
+$rm->installModule("AdminStyleRock", [
+  'rockprimary' => '#0069B4',
+  'logo' => '/site/templates/img/kollar.svg',
+]);
+```
 
 ## Why does this module exist?
 
@@ -23,7 +34,7 @@ When installed, the module sets the `style` property of your $config->AdminTheme
 ## Wording: THEME vs. STYLE
 
 * THEME: When we talk about a PW admin THEME we mean the stylesheet plus all the PHP files that create the markup and business logic.
-* STYLE: A style on the other hand (like the rock or reno style) does only modify the look and feel via changing LESS variables or overwriting CSS 
+* STYLE: A style on the other hand (like the rock or reno style) does only modify the look and feel via changing LESS variables or overwriting CSS
 
 ![img](hr.svg)
 
@@ -45,10 +56,10 @@ The `style` property can not only take one of the two core style names (reno or 
 $config->AdminThemeUikit = [
   // point to the new style
   'style' => '/path/to/your/style.less',
-  
+
   // recompile on every page load during development
   'recompile' => true,
-  
+
   // dont minify the resulting css to make it easier to debug
   'compress' => false,
 ];
