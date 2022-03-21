@@ -6,12 +6,13 @@
  */
 class AdminStyleRock extends WireData implements Module, ConfigurableModule {
 
+  public $logo;
   public $rockprimary;
 
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '0.0.9',
+      'version' => '1.0.0',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => 'template=admin',
       'singular' => true,
@@ -45,20 +46,48 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
       'vars' => $vars,
     ];
 
-  }
-
-  public function ___install() {
-    $m = "AdminThemeUikit";
-    $modules = $this->wire->modules;
-    $data = $modules->getConfig($m);
-    $data['logoURL'] = $this->wire->config->urls($this)."baumrock.svg";
-    $modules->saveConfig($m, $data);
+    // attach hook to set logo url
+    $this->addHookAfter("Modules::saveConfig", $this, "updateLogo");
+    $this->addHookAfter("Inputfield::render", $this, "lockLogoField");
   }
 
   /**
-  * Config inputfields
-  * @param InputfieldWrapper $inputfields
-  */
+   * Lock logo field of AdminThemeUikit
+   * @return void
+   */
+  public function lockLogoField(HookEvent $event) {
+    $field = $event->object;
+    if($field->name !== 'logoURL') return;
+    if($event->process != 'ProcessModule') return;
+    if($this->wire->input->get('name', 'string') !== 'AdminThemeUikit') return;
+    $event->return = $field->value. " (set in AdminStyleRock)";
+  }
+
+  public function updateLogo(HookEvent $event) {
+    $module = $event->arguments(0);
+    if($module != 'AdminStyleRock') return;
+    $logo = $event->arguments(1)['logo'];
+    $this->setLogoUrl($logo);
+  }
+
+  /**
+   * Set logo of AdminThemeUikit
+   */
+  public function setLogoUrl($url, $m = 'AdminThemeUikit') {
+    $modules = $this->wire->modules;
+    $data = $modules->getConfig($m);
+    $data['logoURL'] = $url;
+    $modules->saveConfig($m, $data);
+  }
+
+  public function ___install() {
+    $this->setLogoUrl($this->wire->config->urls($this)."baumrock.svg");
+  }
+
+  /**
+   * Config inputfields
+   * @param InputfieldWrapper $inputfields
+   */
   public function getModuleConfigInputfields($inputfields) {
 
     // add main color
@@ -70,13 +99,13 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
       'label' => '@rock-primary',
     ]);
 
-    // link to change logo url
-    $url = $this->wire->pages->get(2)->url."module/edit?name=AdminThemeUikit";
+    // set logo url
     $inputfields->add([
-      'type' => 'markup',
-      'label' => 'Change Logo',
-      'value' => "<a href='$url' class='ui-button'>Change the logo url in
-        'Masthead + navigation' section of AdminThemeUikit</a>",
+      'type' => 'text',
+      'name' => 'logo',
+      'notes' => 'This will set the logo url of AdminThemeUikit',
+      'value' => $this->logo,
+      'label' => 'Logo URL',
     ]);
 
     return $inputfields;
