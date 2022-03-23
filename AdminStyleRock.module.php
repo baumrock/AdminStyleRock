@@ -12,7 +12,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '1.0.1',
+      'version' => '1.0.2',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => 'template=admin',
       'singular' => true,
@@ -91,8 +91,9 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
   public function updateLogo(HookEvent $event) {
     $module = $event->arguments(0);
     if($module != 'AdminStyleRock') return;
-    $logo = $event->arguments(1)['logo'];
-    $this->setLogoUrl($logo);
+    $data = $event->arguments(1);
+    if(!array_key_exists('logo', $data)) return;
+    $this->setLogoUrl($data['logo']);
   }
 
   public function ___install() {
