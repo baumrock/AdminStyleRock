@@ -12,7 +12,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '1.0.0',
+      'version' => '1.0.1',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => 'template=admin',
       'singular' => true,
@@ -49,6 +49,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
     // attach hook to set logo url
     $this->addHookAfter("Modules::saveConfig", $this, "updateLogo");
     $this->addHookAfter("Inputfield::render", $this, "lockLogoField");
+    $this->addHookAfter('AdminThemeUikit::renderFile', $this, "renderFile");
   }
 
   /**
@@ -63,11 +64,18 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
     $event->return = $field->value. " (set in AdminStyleRock)";
   }
 
-  public function updateLogo(HookEvent $event) {
-    $module = $event->arguments(0);
-    if($module != 'AdminStyleRock') return;
-    $logo = $event->arguments(1)['logo'];
-    $this->setLogoUrl($logo);
+  public function renderFile(HookEvent $event) {
+    $file = basename($event->arguments(0));
+    if($file === '_offcanvas.php') {
+      // remove processwire logo from offcanvas
+      $event->return = str_replace(
+        '<p id="offcanvas-nav-header">',
+        "<button class=uk-offcanvas-close type=button uk-close"
+        ." style='width:40px;height:40px;'></button>"
+        ."<p id='offcanvas-nav-header' hidden>",
+        $event->return
+      );
+    }
   }
 
   /**
@@ -78,6 +86,13 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
     $data = $modules->getConfig($m);
     $data['logoURL'] = $url;
     $modules->saveConfig($m, $data);
+  }
+
+  public function updateLogo(HookEvent $event) {
+    $module = $event->arguments(0);
+    if($module != 'AdminStyleRock') return;
+    $logo = $event->arguments(1)['logo'];
+    $this->setLogoUrl($logo);
   }
 
   public function ___install() {
