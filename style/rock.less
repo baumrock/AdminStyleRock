@@ -1,4 +1,4 @@
-// v1.4
+// v1.5
 
 // ##############################################################
 // theme variables to easily style this theme
@@ -17,6 +17,11 @@
   @global-link-color: @rock-primary;
   @global-link-hover-color: lighten(@rock-primary, 5%);
   @base-selection-background: @rock-primary;
+
+/* ##### fix tooltip issue ##### */
+.uk-tooltip-inner {
+  overflow-wrap: break-word;
+}
 
 /* ##### PageEdit ##### */
 
