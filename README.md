@@ -144,7 +144,7 @@ Thanks to UIkit it is easy to change the base font. For this example we'll use h
 $config->styles->add('https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap');
 ```
 
-For production you might want to download the font instead of adding it via google fonts.
+IMPORTANT: For production you might want to download the font instead of adding it via google fonts to comply with GDPR!
 
 Next, we set the correct UIkit variable - so add this to your style:
 
