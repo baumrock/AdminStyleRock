@@ -7,7 +7,16 @@
     .uk-background-muted;
     color: @global-color;
     i {
-      color: @global-color;
+      color: @global-color !important;
+    }
+  }
+
+  // modal content
+  iframe.pw-modal-window {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    &.pw-modal-loaded {
+      opacity: 1;
     }
   }
 
@@ -16,8 +25,32 @@
     .uk-background-muted;
 
     .ui-button {
+      border: 0;
+      outline: 0;
       background: @global-primary-background;
+      &:hover { background: darken(@global-primary-background, 10%); }
     }
+  }
+}
+
+// inline editing
+@alfred-button-gray: #7c7c7c;
+.ui-widget.pw-edit-buttons {
+  .uk-background-muted;
+  .ui-button {
+    border: 0;
+    outline: 0;
+  }
+  .pw-edit-save {
+    background: @global-primary-background;
+    &:hover { background: darken(@global-primary-background, 10%); }
+  }
+  .pw-edit-cancel {
+    background: @alfred-button-gray;
+    &:hover { background: darken(@alfred-button-gray, 10%); }
+  }
+  .pw-edit-saving {
+    background: @alfred-button-gray;
   }
 }
 
