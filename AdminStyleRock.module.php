@@ -12,9 +12,9 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '1.0.2',
+      'version' => '1.0.3',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
-      'autoload' => 'template=admin',
+      'autoload' => true,
       'singular' => true,
       'icon' => 'css3',
       'requires' => [
@@ -25,11 +25,17 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
     ];
   }
 
-  public function init() {
+  public function ready() {
+    // add alfred style overrides
+    $this->addHookAfter('RockFrontend::addAlfredStyles', $this, 'addAlfredStyles');
+
+    // do everything below only on admin pages
+    if($this->wire->page->template != 'admin') return;
+
     $config = $this->wire()->config;
     $min = !$config->debug;
 
-    $style = $config->paths($this)."style/rock.less";
+    $style = $config->paths($this)."styles/rock.less";
     $compiled = $config->paths->assets."admin";
     if($min) $compiled .= ".min.css";
     else $compiled .= ".css";
@@ -50,6 +56,12 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
     $this->addHookAfter("Modules::saveConfig", $this, "updateLogo");
     $this->addHookAfter("Inputfield::render", $this, "lockLogoField");
     $this->addHookAfter('AdminThemeUikit::renderFile', $this, "renderFile");
+  }
+
+  public function addAlfredStyles(HookEvent $event) {
+    if($this->wire->page->template == 'admin') return;
+    $rf = $event->object;
+    $rf->styles()->add(__DIR__."/styles/alfred.less");
   }
 
   /**

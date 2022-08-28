@@ -1,0 +1,30 @@
+/* ##### Frontend Editing Overrides for ALFRED ##### */
+
+// pw modal
+.ui-dialog.ui-front {
+  // titlebar
+  .ui-dialog-titlebar {
+    .uk-background-muted;
+    color: @global-color;
+    i {
+      color: @global-color;
+    }
+  }
+
+  // footer (with buttons)
+  .ui-dialog-buttonpane {
+    .uk-background-muted;
+
+    .ui-button {
+      background: @global-primary-background;
+    }
+  }
+}
+
+// vex dialog
+.vex {
+  .vex-dialog-button-primary {
+    background-color: @global-primary-background !important;
+    color: white;
+  }
+}
