@@ -1,13 +1,23 @@
 /* ##### Frontend Editing Overrides for ALFRED ##### */
 
+@alfred-modal-background: @global-muted-background; // header and footer bar
+@alfred-modal-color: @global-color; // text for header and footer bar
+@alfred-primary: @global-primary-background; // primary button
+@alfred-secondary: #7c7c7c; // secondary button
+
 // pw modal
 .ui-dialog.ui-front {
   // titlebar
   .ui-dialog-titlebar {
-    .uk-background-muted;
-    color: @global-color;
+    background-color: @alfred-modal-background !important;
+    .ui-dialog-title {
+      color: @alfred-modal-color !important;
+    }
     i {
-      color: @global-color !important;
+      color: @alfred-modal-color !important;
+    }
+    button {
+      background-color: transparent !important;
     }
   }
 
@@ -27,38 +37,37 @@
     .ui-button {
       border: 0;
       outline: 0;
-      background: @global-primary-background;
-      &:hover { background: darken(@global-primary-background, 10%); }
+      background: @alfred-primary;
+      &:hover { background: darken(@alfred-primary, 10%); }
     }
   }
 }
 
 // inline editing
-@alfred-button-gray: #7c7c7c;
 .ui-widget.pw-edit-buttons {
   .uk-background-muted;
   .ui-button {
-    border: 0;
-    outline: 0;
+    border: 0 !important;
+    outline: 0 !important;
   }
   .pw-edit-save {
-    background: @global-primary-background;
-    &:hover { background: darken(@global-primary-background, 10%); }
+    background: @alfred-primary;
+    &:hover { background: darken(@alfred-primary, 10%); }
   }
   .pw-edit-cancel {
-    background: @alfred-button-gray;
-    &:hover { background: darken(@alfred-button-gray, 10%); }
+    background: @alfred-secondary !important;
+    &:hover { background: darken(@alfred-secondary, 10%) !important; }
   }
   .pw-edit-saving,
   .pw-edit-saved {
-    background: @alfred-button-gray;
+    background: @alfred-secondary !important;
   }
 }
 
 // vex dialog
 .vex {
   .vex-dialog-button-primary {
-    background-color: @global-primary-background !important;
+    background-color: @alfred-primary !important;
     color: white;
   }
 }
