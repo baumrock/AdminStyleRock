@@ -1,9 +1,12 @@
 /* ##### Frontend Editing Overrides for ALFRED ##### */
-
-@alfred-modal-background: @global-muted-background; // header and footer bar
-@alfred-modal-color: @global-color; // text for header and footer bar
-@alfred-primary: @global-primary-background; // primary button
-@alfred-secondary: #7c7c7c; // secondary button
+// header and footer bar - hardcoded uk-background-muted
+@alfred-modal-background: #f8f8f8;
+// text for header and footer bar - hardcoded global-color
+@alfred-modal-color: #666;
+// primary button - hardcoded baumrock ci
+@alfred-primary: #00bb86;
+// secondary button - hardcoded baumrock ci
+@alfred-secondary: #313131;
 
 // pw modal
 .ui-dialog.ui-front {
@@ -32,7 +35,7 @@
 
   // footer (with buttons)
   .ui-dialog-buttonpane {
-    .uk-background-muted;
+    background: @alfred-modal-background;
 
     .ui-button {
       border: 0;
@@ -45,7 +48,7 @@
 
 // inline editing
 .ui-widget.pw-edit-buttons {
-  .uk-background-muted;
+  background: @alfred-modal-background;
   .ui-button {
     border: 0 !important;
     outline: 0 !important;
