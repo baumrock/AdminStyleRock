@@ -12,7 +12,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
   public static function getModuleInfo() {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '1.0.4',
+      'version' => '1.0.5',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => true,
       'singular' => true,
@@ -62,6 +62,9 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
     if($this->wire->page->template == 'admin') return;
     $rf = $event->object;
     $rf->styles()->add(__DIR__."/styles/alfred.less");
+    if($this->rockprimary) {
+      $rf->styles()->setVar('alfred-primary', $this->rockprimary);
+    }
   }
 
   /**
@@ -117,6 +120,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
    * @param InputfieldWrapper $inputfields
    */
   public function getModuleConfigInputfields($inputfields) {
+    $this->iframe($inputfields);
 
     // add main color
     $inputfields->add([
@@ -124,7 +128,9 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
       'name' => 'rockprimary',
       'notes' => 'eg #00ff00 or rgba(0,0,0,1)',
       'value' => $this->rockprimary,
-      'label' => '@rock-primary',
+      'label' => 'Primary Color',
+      'description' => 'This color is used as @rock-primary of the rock.less style'
+        .' and as @alfred-primary for the alfred.less frontend editing style',
     ]);
 
     // set logo url
@@ -137,6 +143,36 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
     ]);
 
     return $inputfields;
+  }
+
+  /**
+   * Add a hidden iframe to the module config screen
+   * This loads the frontpage once which forces the CSS to recreate.
+   * We need to do this because we can't know the name/folder of the frontend
+   * CSS assets!
+   * @return void
+   */
+  public function iframe($inputfields) {
+    if($iframe = $this->wire->session->asriframe) {
+      $inputfields->add([
+        'name' => 'iframe',
+        'type' => 'markup',
+        'label' => 'Iframe',
+        'value' => $iframe,
+      ]);
+      $this->wire->session->asriframe = null;
+    }
+    if($this->wire->input->post('rockprimary', 'string')) {
+      /** @var RockFrontend $rf */
+      $rf = $this->wire->modules->get('RockFrontend');
+      $rf->forceRecompile();
+      $url = $this->wire->pages->get(1)->httpUrl();
+      $iframe = "
+        <style>#Inputfield_iframe {position:absolute;width:10px;height:10px;left:-1000px;top:-1000px;}</style>
+        <iframe src=$url width=100% height=400></iframe>
+        ";
+      $this->wire->session->asriframe = $iframe;
+    }
   }
 
 }
