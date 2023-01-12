@@ -1,18 +1,23 @@
-<?php namespace ProcessWire;
+<?php
+
+namespace ProcessWire;
+
 /**
  * @author Bernhard Baumrock, 30.05.2021
  * @license Licensed under MIT
  * @link https://www.baumrock.com
  */
-class AdminStyleRock extends WireData implements Module, ConfigurableModule {
+class AdminStyleRock extends WireData implements Module, ConfigurableModule
+{
 
   public $logo;
   public $rockprimary;
 
-  public static function getModuleInfo() {
+  public static function getModuleInfo()
+  {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '1.0.5',
+      'version' => '1.0.6',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => true,
       'singular' => true,
@@ -25,24 +30,25 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
     ];
   }
 
-  public function ready() {
+  public function ready()
+  {
     // add alfred style overrides
     $this->addHookAfter('RockFrontend::addAlfredStyles', $this, 'addAlfredStyles');
 
     // do everything below only on admin pages
-    if($this->wire->page->template != 'admin') return;
+    if ($this->wire->page->template != 'admin') return;
 
     $config = $this->wire()->config;
     $min = !$config->debug;
 
-    $style = $config->paths($this)."styles/rock.less";
-    $compiled = $config->paths->assets."admin";
-    if($min) $compiled .= ".min.css";
+    $style = $config->paths($this) . "styles/rock.less";
+    $compiled = $config->paths->assets . "admin";
+    if ($min) $compiled .= ".min.css";
     else $compiled .= ".css";
 
     // prepare less vars
     $vars = [];
-    if($this->rockprimary) $vars = ['rock-primary' => $this->rockprimary];
+    if ($this->rockprimary) $vars = ['rock-primary' => $this->rockprimary];
 
     $config->AdminThemeUikit = [
       'style' => $style,
@@ -58,11 +64,12 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
     $this->addHookAfter('AdminThemeUikit::renderFile', $this, "renderFile");
   }
 
-  public function addAlfredStyles(HookEvent $event) {
-    if($this->wire->page->template == 'admin') return;
+  public function addAlfredStyles(HookEvent $event)
+  {
+    if ($this->wire->page->template == 'admin') return;
     $rf = $event->object;
-    $rf->styles()->add(__DIR__."/styles/alfred.less");
-    if($this->rockprimary) {
+    $rf->styles()->add(__DIR__ . "/styles/alfred.less");
+    if ($this->rockprimary) {
       $rf->styles()->setVar('alfred-primary', $this->rockprimary);
     }
   }
@@ -71,23 +78,25 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
    * Lock logo field of AdminThemeUikit
    * @return void
    */
-  public function lockLogoField(HookEvent $event) {
+  public function lockLogoField(HookEvent $event)
+  {
     $field = $event->object;
-    if($field->name !== 'logoURL') return;
-    if($event->process != 'ProcessModule') return;
-    if($this->wire->input->get('name', 'string') !== 'AdminThemeUikit') return;
-    $event->return = $field->value. " (set in AdminStyleRock)";
+    if ($field->name !== 'logoURL') return;
+    if ($event->process != 'ProcessModule') return;
+    if ($this->wire->input->get('name', 'string') !== 'AdminThemeUikit') return;
+    $event->return = $field->value . " (set in AdminStyleRock)";
   }
 
-  public function renderFile(HookEvent $event) {
+  public function renderFile(HookEvent $event)
+  {
     $file = basename($event->arguments(0));
-    if($file === '_offcanvas.php') {
+    if ($file === '_offcanvas.php') {
       // remove processwire logo from offcanvas
       $event->return = str_replace(
         '<p id="offcanvas-nav-header">',
         "<button class=uk-offcanvas-close type=button uk-close"
-        ." style='width:40px;height:40px;'></button>"
-        ."<p id='offcanvas-nav-header' hidden>",
+          . " style='width:40px;height:40px;'></button>"
+          . "<p id='offcanvas-nav-header' hidden>",
         $event->return
       );
     }
@@ -96,30 +105,34 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
   /**
    * Set logo of AdminThemeUikit
    */
-  public function setLogoUrl($url, $m = 'AdminThemeUikit') {
+  public function setLogoUrl($url, $m = 'AdminThemeUikit')
+  {
     $modules = $this->wire->modules;
     $data = $modules->getConfig($m);
     $data['logoURL'] = $url;
     $modules->saveConfig($m, $data);
   }
 
-  public function updateLogo(HookEvent $event) {
+  public function updateLogo(HookEvent $event)
+  {
     $module = $event->arguments(0);
-    if($module != 'AdminStyleRock') return;
+    if ($module != 'AdminStyleRock') return;
     $data = $event->arguments(1);
-    if(!array_key_exists('logo', $data)) return;
+    if (!array_key_exists('logo', $data)) return;
     $this->setLogoUrl($data['logo']);
   }
 
-  public function ___install() {
-    $this->setLogoUrl($this->wire->config->urls($this)."baumrock.svg");
+  public function ___install()
+  {
+    $this->setLogoUrl($this->wire->config->urls($this) . "baumrock.svg");
   }
 
   /**
    * Config inputfields
    * @param InputfieldWrapper $inputfields
    */
-  public function getModuleConfigInputfields($inputfields) {
+  public function getModuleConfigInputfields($inputfields)
+  {
     $this->iframe($inputfields);
 
     // add main color
@@ -130,7 +143,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
       'value' => $this->rockprimary,
       'label' => 'Primary Color',
       'description' => 'This color is used as @rock-primary of the rock.less style'
-        .' and as @alfred-primary for the alfred.less frontend editing style',
+        . ' and as @alfred-primary for the alfred.less frontend editing style',
     ]);
 
     // set logo url
@@ -152,8 +165,12 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
    * CSS assets!
    * @return void
    */
-  public function iframe($inputfields) {
-    if($iframe = $this->wire->session->asriframe) {
+  public function iframe($inputfields)
+  {
+    /** @var RockFrontend $rf */
+    $rf = $this->wire->modules->get('RockFrontend');
+    if (!$rf) return;
+    if ($iframe = $this->wire->session->asriframe) {
       $inputfields->add([
         'name' => 'iframe',
         'type' => 'markup',
@@ -162,9 +179,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
       ]);
       $this->wire->session->asriframe = null;
     }
-    if($this->wire->input->post('rockprimary', 'string')) {
-      /** @var RockFrontend $rf */
-      $rf = $this->wire->modules->get('RockFrontend');
+    if ($this->wire->input->post('rockprimary', 'string')) {
       $rf->forceRecompile();
       $url = $this->wire->pages->get(1)->httpUrl();
       $iframe = "
@@ -174,5 +189,4 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule {
       $this->wire->session->asriframe = $iframe;
     }
   }
-
 }
