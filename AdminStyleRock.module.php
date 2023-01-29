@@ -17,7 +17,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
   {
     return [
       'title' => 'AdminStyleRock',
-      'version' => '1.0.6',
+      'version' => '1.0.7',
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
       'autoload' => true,
       'singular' => true,
@@ -84,7 +84,8 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     if ($field->name !== 'logoURL') return;
     if ($event->process != 'ProcessModule') return;
     if ($this->wire->input->get('name', 'string') !== 'AdminThemeUikit') return;
-    $event->return = $field->value . " (set in AdminStyleRock)";
+    $event->return = $field->value . " (set in AdminStyleRock)"
+      . "<input type=hidden name=logoURL value={$field->value}>";
   }
 
   public function renderFile(HookEvent $event)
