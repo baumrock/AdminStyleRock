@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/baumrock/AdminStyleRock/compare/v1.1.0...v1.2.0) (2023-05-20)
+
+
+### Features
+
+* refactor to use new rockfrontend styles naming ([77743ee](https://github.com/baumrock/AdminStyleRock/commit/77743eee2d402231b1e612f54bcd219503ff48f3))
+
+
+
 # [1.1.0](https://github.com/baumrock/AdminStyleRock/compare/v1.0.7...v1.1.0) (2023-03-04)
 
 
