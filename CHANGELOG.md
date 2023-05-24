@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/baumrock/AdminStyleRock/compare/v1.2.0...v1.2.1) (2023-05-24)
+
+
+### Bug Fixes
+
+* add check for rockfrontend version in addAlfredStyles ([7e2dbb4](https://github.com/baumrock/AdminStyleRock/commit/7e2dbb4d1ad23e8d69b93a6e03ff367d54cb8a90))
+
+
+
 # [1.2.0](https://github.com/baumrock/AdminStyleRock/compare/v1.1.0...v1.2.0) (2023-05-20)
 
 
