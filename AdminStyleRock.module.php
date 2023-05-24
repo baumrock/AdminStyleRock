@@ -68,9 +68,16 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
   {
     if ($this->wire->page->template == 'admin') return;
     $rf = $event->object;
-    $rf->styles('rockfrontend')->add(__DIR__ . "/styles/alfred.less");
+
+    $name = 'head';
+    $version = $this->wire->modules->getModuleInfo($rf)['version'];
+    if (version_compare($version, '2.40.0', '>')) {
+      $name = 'rockfrontend';
+    }
+
+    $rf->styles($name)->add(__DIR__ . "/styles/alfred.less");
     if ($this->rockprimary) {
-      $rf->styles('rockfrontend')->setVar('alfred-primary', $this->rockprimary);
+      $rf->styles($name)->setVar('alfred-primary', $this->rockprimary);
     }
   }
 
