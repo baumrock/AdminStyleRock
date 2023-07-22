@@ -197,6 +197,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
       $url = $this->wire->pages->get(1)->editUrl();
       $fname = self::field_adminlogo;
       $f->value = "<a href='$url&fields=$fname' target=_blank class='ui-button'>Upload Logo</a>";
+      $f->notes = 'You want to use the logo somewhere else? Use $pages->get(1)->adminstylerock_adminlogo to get the PageImage object that you can resize etc.';
     } else {
       $url = $this->wire->pages->get(2)->url;
       $f->value = "<div class='uk-alert uk-alert-danger'>RockMigrations is not installed</div>
