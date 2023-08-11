@@ -10,6 +10,10 @@ namespace ProcessWire;
 class AdminStyleRock extends WireData implements Module, ConfigurableModule
 {
 
+  const prefix = "adminstylerock_";
+
+  const field_adminlogo = self::prefix . "adminlogo";
+
   public $logo;
   public $rockprimary;
 
@@ -19,7 +23,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
       'title' => 'AdminStyleRock',
       'version' => json_decode(file_get_contents(__DIR__ . "/package.json"))->version,
       'summary' => 'Docs & Development Module for rock style of AdminThemeUikit',
-      'autoload' => true,
+      'autoload' => true, // in ready() we exit early if we are not in admin
       'singular' => true,
       'icon' => 'css3',
       'requires' => [
@@ -59,9 +63,9 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     ];
 
     // attach hook to set logo url
-    $this->addHookAfter("Modules::saveConfig", $this, "updateLogo");
-    $this->addHookAfter("Inputfield::render", $this, "lockLogoField");
     $this->addHookAfter('AdminThemeUikit::renderFile', $this, "renderFile");
+    $this->addHookAfter("Pages::saved", $this, "addUploadedLogo");
+    $this->addHookAfter("ProcessPageEdit::buildForm", $this, "hideLogofield");
   }
 
   public function addAlfredStyles(HookEvent $event)
@@ -81,18 +85,32 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     }
   }
 
-  /**
-   * Lock logo field of AdminThemeUikit
-   * @return void
-   */
-  public function lockLogoField(HookEvent $event)
+  public function addUploadedLogo(HookEvent $event): void
   {
-    $field = $event->object;
-    if ($field->name !== 'logoURL') return;
-    if ($event->process != 'ProcessModule') return;
-    if ($this->wire->input->get('name', 'string') !== 'AdminThemeUikit') return;
-    $event->return = $field->value . " (set in AdminStyleRock)"
-      . "<input type=hidden name=logoURL value={$field->value}>";
+    /** @var Page $page */
+    $page = $event->arguments(0);
+    $field = $page->getField(self::field_adminlogo);
+    if (!$field) return;
+    $logo = $page->getFormatted(self::field_adminlogo);
+    if ($logo) $this->setLogoUrl($logo->maxHeight(100)->url);
+    else $this->setLogoUrl('');
+  }
+
+  public function hideLogofield(HookEvent $event): void
+  {
+    $form = $event->return;
+    $f = $form->get(self::field_adminlogo);
+    if (!$f) return; // no field no use for this hook
+
+    // don't execute the hook on page save
+    // otherwise we end up with two images after a new upload
+    if ($this->wire->input->post->submit_save) return;
+
+    $remove = false;
+    if (!$this->wire->user->isSuperuser()) $remove = true;
+    if ($this->wire->input->get('fields') !== self::field_adminlogo) $remove = true;
+
+    if ($remove) $form->remove(self::field_adminlogo);
   }
 
   public function renderFile(HookEvent $event)
@@ -110,6 +128,28 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     }
   }
 
+  public function migrate(): void
+  {
+    /** @var RockMigrations $rm */
+    $rm = $this->wire->modules->get('RockMigrations');
+    $rm->createField(self::field_adminlogo, 'image', [
+      'type' => 'image',
+      'label' => 'Admin Logo',
+      'maxFiles' => 1,
+      'descriptionRows' => 0,
+      'extensions' => 'svg png jpeg jpg',
+      'maxSize' => 3, // max 3 megapixels
+      'icon' => 'picture-o',
+      'outputFormat' => FieldtypeFile::outputFormatSingle,
+      'tags' => 'AdminStyleRock',
+      'okExtensions' => ['svg'],
+      'gridMode' => 'list', // left, list
+      'collapsed' => Inputfield::collapsedNo,
+    ]);
+    $home = $this->wire->pages->get(1)->template;
+    $rm->addFieldToTemplate(self::field_adminlogo, $home);
+  }
+
   /**
    * Set logo of AdminThemeUikit
    */
@@ -119,15 +159,6 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     $data = $modules->getConfig($m);
     $data['logoURL'] = $url;
     $modules->saveConfig($m, $data);
-  }
-
-  public function updateLogo(HookEvent $event)
-  {
-    $module = $event->arguments(0);
-    if ($module != 'AdminStyleRock') return;
-    $data = $event->arguments(1);
-    if (!array_key_exists('logo', $data)) return;
-    $this->setLogoUrl($data['logo']);
   }
 
   public function ___install()
@@ -147,6 +178,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     $inputfields->add([
       'type' => 'text',
       'name' => 'rockprimary',
+      'icon' => 'paint-brush',
       'notes' => 'eg #00ff00 or rgba(0,0,0,1)',
       'value' => $this->rockprimary,
       'label' => 'Primary Color',
@@ -154,14 +186,25 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
         . ' and as @alfred-primary for the alfred.less frontend editing style',
     ]);
 
-    // set logo url
-    $inputfields->add([
-      'type' => 'text',
-      'name' => 'logo',
-      'notes' => 'This will set the logo url of AdminThemeUikit',
-      'value' => $this->logo,
-      'label' => 'Logo URL',
-    ]);
+    /** @var RockMigrations $rm */
+    $rm = $this->wire->modules->get('RockMigrations');
+    /** @var InputfieldMarkup $f */
+    $f = $this->wire->modules->get('InputfieldMarkup');
+    $f->label = "Upload Logo";
+    $f->icon = "upload";
+    if ($rm) {
+      $this->migrate();
+      $url = $this->wire->pages->get(1)->editUrl();
+      $fname = self::field_adminlogo;
+      $f->value = "<a href='$url&fields=$fname' target=_blank class='ui-button'>Upload Logo</a>";
+      $f->notes = 'You want to use the logo somewhere else? Use $pages->get(1)->adminstylerock_adminlogo to get the PageImage object that you can resize etc.';
+    } else {
+      $url = $this->wire->pages->get(2)->url;
+      $f->value = "<div class='uk-alert uk-alert-danger'>RockMigrations is not installed</div>
+        <div>You can either install RockMigrations or you can set a logo manually in
+        <a href='{$url}module/edit?name=AdminThemeUikit'>AdminThemeUikit</a>.";
+    }
+    $inputfields->add($f);
 
     return $inputfields;
   }
