@@ -93,7 +93,11 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     if (!$field) return;
     $logo = $page->getFormatted(self::field_adminlogo);
     if ($logo) $this->setLogoUrl($logo->maxHeight(100)->url);
-    else $this->setLogoUrl('');
+    else {
+      // do nothing!
+      // if we reset the logo here it is not possible to set a custom logo
+      // from AdminThemeUikit
+    }
   }
 
   public function hideLogofield(HookEvent $event): void
