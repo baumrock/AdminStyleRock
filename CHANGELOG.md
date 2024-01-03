@@ -1,3 +1,17 @@
+# [1.4.0](https://github.com/baumrock/AdminStyleRock/compare/v1.3.1...v1.4.0) (2024-01-03)
+
+
+### Bug Fixes
+
+* don't reset logo on homepage save ([f62b63a](https://github.com/baumrock/AdminStyleRock/commit/f62b63aea76366a0c8c6639c3b68a999582f58c1))
+
+
+### Features
+
+* expose primary color as --rock-primary css variable ([8c27583](https://github.com/baumrock/AdminStyleRock/commit/8c275839043f9c8dcc33046b4dbe9337f6ae7f54))
+
+
+
 ## [1.3.1](https://github.com/baumrock/AdminStyleRock/compare/v1.3.0...v1.3.1) (2023-11-02)
 
 
@@ -36,15 +50,6 @@
 ### Features
 
 * refactor to use new rockfrontend styles naming ([77743ee](https://github.com/baumrock/AdminStyleRock/commit/77743eee2d402231b1e612f54bcd219503ff48f3))
-
-
-
-# [1.1.0](https://github.com/baumrock/AdminStyleRock/compare/v1.0.7...v1.1.0) (2023-03-04)
-
-
-### Features
-
-* setup conventional commits ([221588f](https://github.com/baumrock/AdminStyleRock/commit/221588f17ce059f84ad6d198aae15ffb9ef235cb))
 
 
 
