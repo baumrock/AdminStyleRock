@@ -1,0 +1,129 @@
+@rock-special-opacity: 0.8;
+@rock-padding-y: 10px;
+@status-dot-size: 0.3rem;
+
+.PageList .PageListItem > a.PageListPage {
+  color: #111;
+  font-weight: normal;
+}
+
+.PageList .PageListActions a {
+  background-color: @rock-gray-700;
+}
+
+.PageList .PageListActions a:hover {
+  background-color: darken(@rock-primary, 10%);
+}
+
+.PageList .PageListActions li.PageListActionEdit a {
+  //background-color: green;
+  background-color: darken(@rock-primary, 10%);
+}
+
+.PageList .PageListItem {
+  border-bottom: none;
+  border-bottom-width: 0;
+}
+
+.PageList .PageListItem:not(.PageListID1) {
+  border-bottom: none;
+  border-top: none;
+  padding: @rock-padding-y 0.5rem @rock-padding-y 0.625rem;
+  margin-top: 0px;
+  border-left: 2px solid #cbcbcb;
+  margin-left: 4px;
+}
+
+.PageList .PageListItemOpen > a.PageListPage {
+  color: #111;
+  font-weight: normal;
+}
+
+.PageList .PageListTriggerOpen > a.PageListPage {
+  color: #111;
+  font-weight: normal;
+}
+
+.PageListStatusHidden,
+.PageListStatusUnpublished,
+.PageListStatusHidden:hover {
+  a.PageListPage.label {
+    opacity: @rock-special-opacity !important;
+  }
+  background-color: @rock-gray-100 !important;
+  font-style: italic;
+}
+
+.PageListContainerRoot {
+  .PageListStatusSystem:not(.PageListID1),
+  .PageListStatusSystem:not(.PageListID1):hover {
+    // margin-top:3px;
+    border-top: 0px solid white !important;
+    background-color: @rock-gray-100 !important;
+
+    a.PageListPage {
+      color: #4b4b4b;
+    }
+  }
+
+  .PageListStatusSystem:not(.PageListID1):before {
+    -webkit-border-radius: 0rem;
+    border-radius: 0rem;
+  }
+}
+
+.PageList .PageListStatusHidden > a.PageListPage {
+  opacity: 1;
+}
+
+.PageListItem::before {
+  display: inline-block;
+  content: "--\f06e";
+  font-family: fontAwesome;
+  margin-right: 0.5rem;
+  margin-left: -0.7rem;
+  margin-bottom: 0.25rem;
+  color: green;
+}
+.PageListID1::before {
+  display: inline-block;
+  content: "";
+}
+
+.PageListStatusHidden::before {
+  display: inline-block;
+  content: "--\f070";
+  font-family: fontAwesome;
+  margin-right: 0.5rem;
+  margin-left: -0.7rem;
+  margin-bottom: 0.25rem;
+  color: orange;
+}
+.PageListStatusUnpublished::before {
+  display: inline-block;
+  content: "--\f00d";
+  font-family: fontAwesome;
+  margin-right: 0.5rem;
+  margin-left: -0.7rem;
+  margin-bottom: 0.25rem;
+  color: red;
+}
+
+// move all children from the root page more to the left
+// so that they are aligned with the chevron
+.PageListRoot > .PageList > .PageList {
+  margin-left: 0;
+}
+
+.PageList .PageListStatusUnpublished a.PageListPage > span,
+.PageList .PageListStatusUnpublished a.PageListPage {
+  text-decoration: none !important;
+}
+
+body:not(.pw-narrow-width)
+  .PageList
+  .PageListItem.PageListHasChildren:not(.PageListItemOpen)
+  > a.PageListPage::before {
+  color: #111;
+  font-weight: bold;
+}
