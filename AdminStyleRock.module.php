@@ -244,4 +244,14 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
       $this->wire->session->asriframe = $iframe;
     }
   }
+
+  public function ___uninstall()
+  {
+    $modules = $this->wire('modules');
+    $adminThemeUikit = $modules->get('AdminThemeUikit');
+    if ($adminThemeUikit) {
+      $adminThemeUikit->logoURL = '';
+      $modules->saveConfig('AdminThemeUikit', 'logoURL', '');
+    }
+  }
 }
