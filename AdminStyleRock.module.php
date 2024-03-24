@@ -45,7 +45,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     $config = $this->wire()->config;
     $min = !$config->debug;
 
-    $style = $config->paths($this) . "styles/rock.less";
+    $style = $config->paths($this) . "styles/_rock.less";
     $compiled = $config->paths->assets . "admin";
     if ($min) $compiled .= ".min.css";
     else $compiled .= ".css";
@@ -54,11 +54,22 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     $vars = [];
     if ($this->rockprimary) $vars = ['rock-primary' => $this->rockprimary];
 
+    // check if a file was changed
+    $mCSS = @filemtime($compiled);
+    $mLESS = 0;
+    $files = $this->wire->files->find(__DIR__ . "/styles", [
+      'extensions' => 'less',
+    ]);
+    foreach ($files as $file) {
+      if ($mLESS > $mCSS) continue;
+      $mLESS = max($mLESS, filemtime($file));
+    }
+
     $config->AdminThemeUikit = [
       'style' => $style,
       'compress' => $min,
       'customCssFile' => $compiled,
-      'recompile' => @(filemtime($style) > filemtime($compiled)),
+      'recompile' => $mLESS > $mCSS,
       'vars' => $vars,
     ];
 
@@ -79,7 +90,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
       $name = 'rockfrontend';
     }
 
-    $rf->styles($name)->add(__DIR__ . "/styles/alfred.less");
+    $rf->styles($name)->add(__DIR__ . "/styles/_alfred.less");
     if ($this->rockprimary) {
       $rf->styles($name)->setVar('alfred-primary', $this->rockprimary);
     }

@@ -1,0 +1,16 @@
+@rock-primary: #00bb86;
+
+html {
+  --rock-primary: @rock-primary;
+}
+@global-primary-background: @rock-primary;
+@global-link-color: @rock-primary;
+@global-link-hover-color: lighten(@rock-primary, 5%);
+@base-selection-background: darken(@rock-primary, 5%);
+
+@import "general.less";
+@import "pageedit.less";
+@import "buttons.less";
+@import "inputfields.less";
+@import "notifications.less";
+@import "pagetree.less";
