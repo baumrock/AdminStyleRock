@@ -1,6 +1,7 @@
-@rock-special-opacity: 0.9;
-@rock-padding-y: 7px;
-@rock-pagelist-color: @rock-gray-800;
+@rock-padding-y: 7px; // defines the line-height of pagelist items
+@rock-pagelist-color: @rock-gray-800; // pagelist item color
+@rock-special-opacity: 0.9; // opacity of special pages (hidden/unpub)
+@rock-pagestatus-opacity: 0.5; // opacity of status indicator icons of special pages (hidden/unpub)
 
 // page list item color
 .PageList .PageListItem > a.PageListPage {
@@ -106,6 +107,7 @@
   margin-left: -0.7rem;
   margin-bottom: 0.25rem;
   color: orange;
+  opacity: @rock-pagestatus-opacity;
 }
 .PageListStatusUnpublished::before {
   display: inline-block;
@@ -115,6 +117,7 @@
   margin-left: -0.7rem;
   margin-bottom: 0.25rem;
   color: red;
+  opacity: @rock-pagestatus-opacity;
 }
 
 // no page status on root page
