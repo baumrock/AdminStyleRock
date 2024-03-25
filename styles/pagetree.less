@@ -126,13 +126,20 @@
   content: "";
 }
 
-// adjustments for moving/sorting items
+// moving/sorting improvements
 .PageListPlaceholderItem::before {
+  // no status-indicator
   content: "";
 }
 .PageListSortPlaceholder {
+  // align left border with other pagelist items
   margin-left: 4px;
   border-left: 2px solid @rock-gray-700 !important;
+}
+.PageListPlaceholder {
+  height: 10px;
+  outline: 1px dashed @rock-gray-300;
+  margin-top: -4px !important;
 }
 
 // alignment of root children
