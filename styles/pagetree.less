@@ -1,23 +1,27 @@
 @rock-special-opacity: 0.9;
-@rock-padding-y: 10px;
+@rock-padding-y: 7px;
+@rock-pagelist-color: @rock-gray-800;
 
 // page list item color
 .PageList .PageListItem > a.PageListPage {
-  color: @rock-gray-900;
+  color: @rock-pagelist-color;
   font-weight: normal;
 }
 .PageList .PageListItemOpen > a.PageListPage {
-  color: @rock-gray-900;
+  color: @rock-pagelist-color;
   font-weight: normal;
 }
 .PageList .PageListTriggerOpen > a.PageListPage {
-  color: @rock-gray-900;
+  color: @rock-pagelist-color;
   font-weight: normal;
 }
 .PageList .PageListItem > a.PageListPage:hover,
 .PageList .PageListItem.PageListItemHover > a.PageListPage {
   color: black !important;
   text-decoration: none;
+}
+.PageListItem.PageListHasChildren > a.PageListPage:before {
+  color: @rock-pagelist-color !important;
 }
 
 // pagelist action buttons
@@ -35,11 +39,19 @@
 .PageList .PageListItem {
   border-bottom: none;
   border-bottom-width: 0;
+
+  // add padding to anchor elements (better hover actions)
+  > a {
+    display: inline-block;
+    padding-top: @rock-padding-y;
+    padding-bottom: @rock-padding-y;
+  }
 }
 .PageList .PageListItem:not(.PageListID1):not(.PageListPlaceholderItem) {
   border-bottom: none;
   border-top: none;
-  padding: @rock-padding-y 0.5rem @rock-padding-y 0.625rem;
+  padding: 0;
+  padding-left: 10px;
   margin-top: 0px;
   border-left: 2px solid @rock-gray-300;
   margin-left: 4px;
@@ -62,13 +74,21 @@
 }
 .PageListStatusSystem,
 .PageListStatusSystem:hover {
+  // light muted background
   background-color: @rock-gray-100 !important;
 }
 .PageListID1,
 .PageListID1:hover {
+  // no background on root page
   background-color: transparent !important;
 }
+.PageList .PageListStatusUnpublished a.PageListPage > span,
+.PageList .PageListStatusUnpublished a.PageListPage {
+  // no strikethrough etc
+  text-decoration: none !important;
+}
 
+// page status indicators
 .PageListItem::before {
   display: inline-block;
   content: "--\f06e";
@@ -78,20 +98,6 @@
   margin-bottom: 0.25rem;
   color: green;
 }
-.PageListID1::before {
-  display: inline-block;
-  content: "";
-}
-
-// adjustments for moving/sorting items
-.PageListPlaceholderItem::before {
-  content: "";
-}
-.PageListSortPlaceholder {
-  margin-left: 4px;
-  border-left: 2px solid @rock-gray-700 !important;
-}
-
 .PageListStatusHidden::before {
   display: inline-block;
   content: "--\f070";
@@ -111,21 +117,22 @@
   color: red;
 }
 
-// move all children from the root page more to the left
-// so that they are aligned with the chevron
+// no page status on root page
+.PageListID1::before {
+  display: inline-block;
+  content: "";
+}
+
+// adjustments for moving/sorting items
+.PageListPlaceholderItem::before {
+  content: "";
+}
+.PageListSortPlaceholder {
+  margin-left: 4px;
+  border-left: 2px solid @rock-gray-700 !important;
+}
+
+// alignment of root children
 .PageListRoot > .PageList > .PageList {
   margin-left: 0;
-}
-
-.PageList .PageListStatusUnpublished a.PageListPage > span,
-.PageList .PageListStatusUnpublished a.PageListPage {
-  text-decoration: none !important;
-}
-
-body:not(.pw-narrow-width)
-  .PageList
-  .PageListItem.PageListHasChildren:not(.PageListItemOpen)
-  > a.PageListPage::before {
-  color: #111;
-  font-weight: bold;
 }
