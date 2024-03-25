@@ -1,79 +1,72 @@
-@rock-special-opacity: 0.8;
+@rock-special-opacity: 0.9;
 @rock-padding-y: 10px;
-@status-dot-size: 0.3rem;
 
+// page list item color
 .PageList .PageListItem > a.PageListPage {
-  color: #111;
+  color: @rock-gray-900;
   font-weight: normal;
 }
+.PageList .PageListItemOpen > a.PageListPage {
+  color: @rock-gray-900;
+  font-weight: normal;
+}
+.PageList .PageListTriggerOpen > a.PageListPage {
+  color: @rock-gray-900;
+  font-weight: normal;
+}
+.PageList .PageListItem > a.PageListPage:hover,
+.PageList .PageListItem.PageListItemHover > a.PageListPage {
+  color: black !important;
+  text-decoration: none;
+}
 
+// pagelist action buttons
 .PageList .PageListActions a {
   background-color: @rock-gray-700;
 }
-
 .PageList .PageListActions a:hover {
-  background-color: darken(@rock-primary, 10%);
+  background-color: darken(@rock-primary, 20%);
 }
-
 .PageList .PageListActions li.PageListActionEdit a {
-  //background-color: green;
   background-color: darken(@rock-primary, 10%);
 }
 
+// style of pagelist items (lines)
 .PageList .PageListItem {
   border-bottom: none;
   border-bottom-width: 0;
 }
-
-.PageList .PageListItem:not(.PageListID1) {
+.PageList .PageListItem:not(.PageListID1):not(.PageListPlaceholderItem) {
   border-bottom: none;
   border-top: none;
   padding: @rock-padding-y 0.5rem @rock-padding-y 0.625rem;
   margin-top: 0px;
-  border-left: 2px solid #cbcbcb;
+  border-left: 2px solid @rock-gray-300;
   margin-left: 4px;
 }
-
-.PageList .PageListItemOpen > a.PageListPage {
-  color: #111;
-  font-weight: normal;
+.PageListItem:hover:not(.PageListID1):not(.PageListPlaceholderItem) {
+  border-left: 2px solid @rock-gray-500;
 }
 
-.PageList .PageListTriggerOpen > a.PageListPage {
-  color: #111;
-  font-weight: normal;
-}
-
+// special pages: hidden/unpublished
 .PageListStatusHidden,
 .PageListStatusUnpublished,
 .PageListStatusHidden:hover {
+  // text opacity
   a.PageListPage.label {
     opacity: @rock-special-opacity !important;
   }
+  // line style
   background-color: @rock-gray-100 !important;
   font-style: italic;
 }
-
-.PageListContainerRoot {
-  .PageListStatusSystem:not(.PageListID1),
-  .PageListStatusSystem:not(.PageListID1):hover {
-    // margin-top:3px;
-    border-top: 0px solid white !important;
-    background-color: @rock-gray-100 !important;
-
-    a.PageListPage {
-      color: #4b4b4b;
-    }
-  }
-
-  .PageListStatusSystem:not(.PageListID1):before {
-    -webkit-border-radius: 0rem;
-    border-radius: 0rem;
-  }
+.PageListStatusSystem,
+.PageListStatusSystem:hover {
+  background-color: @rock-gray-100 !important;
 }
-
-.PageList .PageListStatusHidden > a.PageListPage {
-  opacity: 1;
+.PageListID1,
+.PageListID1:hover {
+  background-color: transparent !important;
 }
 
 .PageListItem::before {
@@ -88,6 +81,15 @@
 .PageListID1::before {
   display: inline-block;
   content: "";
+}
+
+// adjustments for moving/sorting items
+.PageListPlaceholderItem::before {
+  content: "";
+}
+.PageListSortPlaceholder {
+  margin-left: 4px;
+  border-left: 2px solid @rock-gray-700 !important;
 }
 
 .PageListStatusHidden::before {
