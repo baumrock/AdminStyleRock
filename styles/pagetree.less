@@ -98,30 +98,21 @@
 // page status indicators
 .PageListItem::before {
   display: inline-block;
-  content: "\2014\f06e";
+  content: "\2014\f0ac";
   font-family: fontAwesome;
   margin-right: 0.5rem;
   margin-left: -0.7rem;
   margin-bottom: 0.25rem;
   color: green;
+  font-size: 10px;
 }
 .PageListStatusHidden::before {
-  display: inline-block;
   content: "\2014\f070";
-  font-family: fontAwesome;
-  margin-right: 0.5rem;
-  margin-left: -0.7rem;
-  margin-bottom: 0.25rem;
   color: orange;
   opacity: @rock-pagestatus-opacity;
 }
 .PageListStatusUnpublished::before {
-  display: inline-block;
   content: "\2014\f00d";
-  font-family: fontAwesome;
-  margin-right: 0.5rem;
-  margin-left: -0.7rem;
-  margin-bottom: 0.25rem;
   color: red;
   opacity: @rock-pagestatus-opacity;
 }
