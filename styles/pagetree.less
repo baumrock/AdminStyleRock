@@ -42,7 +42,13 @@
   }
 }
 
-// style of pagelist items (lines)
+// pagelist items (lines)
+.PageListRoot {
+  --line-width: 2px;
+}
+.PageList .PageList {
+  border-left: var(--line-width) solid @rock-gray-300;
+}
 .PageList .PageListItem {
   border-bottom: none;
   border-bottom-width: 0;
@@ -62,11 +68,12 @@
   padding: 0;
   padding-left: 10px;
   margin-top: 0px;
-  border-left: 2px solid @rock-gray-300;
-  margin-left: 4px;
+  border-left: var(--line-width) solid @rock-gray-300;
+  margin-left: calc(-1 * var(--line-width));
 }
 .PageListItem:hover:not(.PageListID1):not(.PageListPlaceholderItem) {
-  border-left: 2px solid @rock-gray-500;
+  // left border darker on hover
+  border-left: var(--line-width) solid @rock-gray-500;
 }
 
 // special pages: hidden/unpublished
@@ -117,10 +124,6 @@
   content: "\2014x";
   color: red;
   opacity: @rock-pagestatus-opacity;
-}
-.PageListId,
-.PageListTemplate {
-  display: none;
 }
 
 // no page status on root page
