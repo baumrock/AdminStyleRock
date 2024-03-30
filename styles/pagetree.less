@@ -47,7 +47,9 @@
   border-bottom: none;
   border-bottom-width: 0;
 
-  // add padding to anchor elements (better hover actions)
+  // add padding to anchor elements
+  // this makes hover of lines take effect immediately when changing
+  // the row and not only if hovered over the line label
   > a {
     display: inline-block;
     padding-top: @rock-padding-y;
@@ -71,14 +73,14 @@
 .PageListStatusHidden,
 .PageListStatusUnpublished,
 .PageListStatusHidden:hover {
+  font-style: italic;
   // text opacity
   a.PageListPage.label {
     opacity: @rock-special-opacity !important;
   }
-  // line style
-  background-color: @rock-gray-100 !important;
-  font-style: italic;
 }
+.PageListStatusUnpublished,
+.PageListStatusUnpublished:hover,
 .PageListStatusSystem,
 .PageListStatusSystem:hover {
   // light muted background
@@ -98,23 +100,27 @@
 // page status indicators
 .PageListItem::before {
   display: inline-block;
-  content: "\2014\f0ac";
-  font-family: fontAwesome;
+  content: "\2014\2014";
+  // font-family: fontAwesome;
   margin-right: 0.5rem;
   margin-left: -0.7rem;
   margin-bottom: 0.25rem;
   color: green;
-  font-size: 10px;
+  // font-size: 12px;
 }
 .PageListStatusHidden::before {
-  content: "\2014\f070";
+  content: "\2014/";
   color: orange;
   opacity: @rock-pagestatus-opacity;
 }
 .PageListStatusUnpublished::before {
-  content: "\2014\f00d";
+  content: "\2014x";
   color: red;
   opacity: @rock-pagestatus-opacity;
+}
+.PageListId,
+.PageListTemplate {
+  display: none;
 }
 
 // no page status on root page
