@@ -3,6 +3,14 @@
 @rock-special-opacity: 0.9; // opacity of special pages (hidden/unpub)
 @rock-pagestatus-opacity: 0.5; // opacity of status indicator icons of special pages (hidden/unpub)
 
+.PageListRoot {
+  // border width of tree lines
+  --rock-line-width: 2px;
+
+  // 30px matches the toggle icon
+  --rock-indent-width: 30px;
+}
+
 // page list item color
 .PageList .PageListItem > a.PageListPage {
   color: @rock-pagelist-color;
@@ -26,12 +34,16 @@
 }
 
 // pagelist action buttons
+.PageList .uk-pagination a,
 .PageList .PageListActions a {
+  color: white;
   background-color: @rock-gray-700;
 }
+.PageList .uk-pagination a:hover,
 .PageList .PageListActions a:hover {
   background-color: darken(@rock-primary, 20%);
 }
+.PageList .uk-pagination .uk-active a,
 .PageList .PageListActions li.PageListActionEdit a {
   background-color: darken(@rock-primary, 10%);
 }
@@ -42,12 +54,12 @@
   }
 }
 
-// pagelist items (lines)
-.PageListRoot {
-  --line-width: 2px;
-}
+// pagelist items (lines + nesting indicators)
 .PageList .PageList {
-  border-left: var(--line-width) solid @rock-gray-300;
+  border-left: var(--rock-line-width) solid @rock-gray-300;
+}
+.PageListRoot > .PageList .PageList {
+  margin-left: var(--rock-indent-width);
 }
 .PageList .PageListItem {
   border-bottom: none;
@@ -68,12 +80,18 @@
   padding: 0;
   padding-left: 10px;
   margin-top: 0px;
-  border-left: var(--line-width) solid @rock-gray-300;
-  margin-left: calc(-1 * var(--line-width));
+  border-left: var(--rock-line-width) solid @rock-gray-300;
+  margin-left: calc(-1 * var(--rock-line-width));
 }
 .PageListItem:hover:not(.PageListID1):not(.PageListPlaceholderItem) {
   // left border darker on hover
-  border-left: var(--line-width) solid @rock-gray-500;
+  border-left: var(--rock-line-width) solid @rock-gray-500;
+}
+
+// adjustments for pagination and more button
+.PageList > ul.PageListActions,
+ul.uk-pagination {
+  padding-left: 5px;
 }
 
 // special pages: hidden/unpublished
@@ -107,8 +125,9 @@
 // page status indicators
 .PageListItem::before {
   display: inline-block;
-  content: "\2014\2014";
+  content: "--";
   // font-family: fontAwesome;
+  font-family: "Courier New", Courier, monospace;
   margin-right: 0.5rem;
   margin-left: -0.7rem;
   margin-bottom: 0.25rem;
@@ -116,12 +135,12 @@
   // font-size: 12px;
 }
 .PageListStatusHidden::before {
-  content: "\2014/";
+  content: "-/";
   color: orange;
   opacity: @rock-pagestatus-opacity;
 }
 .PageListStatusUnpublished::before {
-  content: "\2014x";
+  content: "-x";
   color: red;
   opacity: @rock-pagestatus-opacity;
 }
