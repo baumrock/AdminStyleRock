@@ -74,9 +74,9 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     ];
 
     // attach hook to set logo url
-    $this->addHookAfter('AdminThemeUikit::renderFile', $this, "renderFile");
-    $this->addHookAfter("Pages::saved", $this, "addUploadedLogo");
-    $this->addHookAfter("ProcessPageEdit::buildForm", $this, "hideLogofield");
+    wire()->addHookAfter('AdminThemeUikit::renderFile', $this, "renderFile");
+    wire()->addHookAfter("Pages::saved", $this, "addUploadedLogo");
+    wire()->addHookAfter("ProcessPageEdit::buildForm", $this, "hideLogofield");
   }
 
   public function addAlfredStyles(HookEvent $event)
