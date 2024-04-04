@@ -106,11 +106,22 @@ ul.uk-pagination {
 }
 .PageListStatusUnpublished,
 .PageListStatusUnpublished:hover,
-.PageListStatusSystem,
-.PageListStatusSystem:hover {
+.PageListNotPublic,
+.PageListNotPublic:hover,
+.PageListNoFile,
+.PageListNoFile:hover {
   // light muted background
   background-color: @rock-gray-100 !important;
 }
+.PageListNoFile,
+.PageListNoFile:hover {
+  &::before {
+    color: transparent !important;
+    border-top: 2px dashed @rock-gray-300;
+    transform: translateY(9px);
+  }
+}
+
 .PageListID1,
 .PageListID1:hover {
   // no background on root page
@@ -158,8 +169,12 @@ ul.uk-pagination {
 }
 .PageListSortPlaceholder {
   // align left border with other pagelist items
-  margin-left: 4px;
+  margin-left: calc(-1 * var(--rock-line-width));
   border-left: 2px solid @rock-gray-700 !important;
+
+  // set the height of the placeholder to the same as other lines
+  // this is at the moment hardcoded and should be made dynamic
+  height: 41px !important;
 }
 .PageListPlaceholder {
   height: 10px;
