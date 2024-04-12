@@ -38,6 +38,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
   {
     // add alfred style overrides
     $this->addHookAfter('RockFrontend::addAlfredStyles', $this, 'addAlfredStyles');
+    $this->addHookAfter('Page::render', $this, 'addCssVariables');
 
     // do everything below only on admin pages
     if ($this->wire->page->template != 'admin') return;
@@ -96,6 +97,21 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     if ($this->rockprimary) {
       $rf->styles($name)->setVar('alfred-primary', $this->rockprimary);
     }
+  }
+
+  protected function addCssVariables(HookEvent $event): void
+  {
+    /** @var Page $page */
+    $page = $event->object;
+    if ($page->template != 'admin') return;
+    if ($this->wire->config->ajax) return;
+    if ($this->wire->config->external) return;
+    if (!$this->tmpCustomCss) return;
+    $event->return = str_replace(
+      "</head>",
+      "<style>{$this->tmpCustomCss}</style></head>",
+      $event->return
+    );
   }
 
   private function addDarkmodeToggle(): void
@@ -248,6 +264,14 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
         <a href='{$this->wire->pages->get(2)->url}module/edit?name=AdminThemeUikit'>AdminThemeUikit</a>.";
     }
     $inputfields->add($f);
+
+    $inputfields->add([
+      'type' => 'textarea',
+      'name' => 'tmpCustomCss',
+      'icon' => 'code',
+      'value' => $this->tmpCustomCss,
+      'label' => 'Custom CSS (for variables)',
+    ]);
 
     return $inputfields;
   }
