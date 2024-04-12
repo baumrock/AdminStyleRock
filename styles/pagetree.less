@@ -1,188 +1,278 @@
-@rock-padding-y: 7px; // defines the line-height of pagelist items
-@rock-pagelist-color: @rock-gray-800; // pagelist item color
-@rock-special-opacity: 0.9; // opacity of special pages (hidden/unpub)
-@rock-pagestatus-opacity: 0.5; // opacity of status indicator icons of special pages (hidden/unpub)
+/*
+##### PageList Variables #####
 
+@ryan: Could we move some variables to the core theme, so we could
+get rid of the --rock prefix and we could build on a common backend standard,
+which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
+*/
 .PageListRoot {
   // border width of tree lines
-  --rock-line-width: 2px;
+  --rock-pagelist-line-width: 3px;
 
-  // 30px matches the toggle icon
-  --rock-indent-width: 30px;
-}
+  // indentation matches position of chevron
+  --rock-level-indent: 30px;
+  --rock-first-level-indent: 3px;
 
-// page list item color
-.PageList .PageListItem > a.PageListPage {
-  color: @rock-pagelist-color;
-  font-weight: normal;
-}
-.PageList .PageListItemOpen > a.PageListPage {
-  color: @rock-pagelist-color;
-  font-weight: normal;
-}
-.PageList .PageListTriggerOpen > a.PageListPage {
-  color: @rock-pagelist-color;
-  font-weight: normal;
-}
-.PageList .PageListItem > a.PageListPage:hover,
-.PageList .PageListItem.PageListItemHover > a.PageListPage {
-  color: black !important;
-  text-decoration: none;
-}
-.PageListItem.PageListHasChildren > a.PageListPage:before {
-  color: @rock-pagelist-color !important;
-}
+  // pagelist items height
+  --rock-pagelist-padding-y: 7px;
 
-// pagelist action buttons
-.PageList .uk-pagination a,
-.PageList .PageListActions a {
-  color: white;
-  background-color: @rock-gray-700;
-}
-.PageList .uk-pagination a:hover,
-.PageList .PageListActions a:hover {
-  background-color: darken(@rock-primary, 20%);
-}
-.PageList .uk-pagination .uk-active a,
-.PageList .PageListActions li.PageListActionEdit a {
-  background-color: darken(@rock-primary, 10%);
-}
-.PageList .PageListMoveNote a {
-  background-color: darken(@rock-primary, 10%);
-  &:hover {
-    background-color: darken(@rock-primary, 20%);
-  }
+  // text color
+  --rock-pagelist-color: var(--rock-gray-800);
+  --rock-pagelist-hover-color: black;
+
+  // opacity of special pages (hidden/unpub)
+  --rock-special-opacity: 0.8;
+
+  // indentation guide line color
+  --rock-line-color: var(--rock-gray-300);
+
+  // status colors
+  --rock-status-public: green;
+  --rock-status-hidden: orange;
+  --rock-status-unpublished: red;
+
+  // sort-placeholder height
+  --rock-sortplaceholder-height: 41px;
+
+  // action button opacity (on hover)
+  --rock-action-hover-opacity: 0.8;
 }
 
-// pagelist items (lines + nesting indicators)
-.PageList .PageList {
-  border-left: var(--rock-line-width) solid @rock-gray-300;
-}
-.PageListRoot > .PageList .PageList {
-  margin-left: var(--rock-indent-width);
-}
+/*
+##### Overrides #####
+@ryan: Could these be removed from the core?
+*/
+
+// remove pagelist lines
 .PageList .PageListItem {
   border-bottom: none;
   border-bottom-width: 0;
+}
 
-  // add padding to anchor elements
-  // this makes hover of lines take effect immediately when changing
-  // the row and not only if hovered over the line label
-  > a {
-    display: inline-block;
-    padding-top: @rock-padding-y;
-    padding-bottom: @rock-padding-y;
+/*
+##### Text style and color #####
+
+GUIDE:
+No text decoration for better readability.
+Good contrast for better readability.
+Status indicators done left of the text by symbol + color.
+
+@ryan: Crazy selectors necessary to override basic stuff.
+*/
+
+// remove core text decorations
+.PageListRoot {
+  .PageList .PageListStatusUnpublished a.PageListPage > span,
+  .PageList .PageListStatusUnpublished a.PageListPage {
+    text-decoration: none;
   }
 }
-.PageList .PageListItem:not(.PageListID1):not(.PageListPlaceholderItem) {
-  border-bottom: none;
-  border-top: none;
-  padding: 0;
-  padding-left: 10px;
-  margin-top: 0px;
-  border-left: var(--rock-line-width) solid @rock-gray-300;
-  margin-left: calc(-1 * var(--rock-line-width));
+// set list item text color and font weight
+.PageList .PageListItem > a.PageListPage,
+.PageList .PageListItemOpen > a.PageListPage,
+.PageList .PageListTriggerOpen > a.PageListPage {
+  font-weight: normal;
+  color: var(--rock-pagelist-color);
 }
-.PageListItem:hover:not(.PageListID1):not(.PageListPlaceholderItem) {
-  // left border darker on hover
-  border-left: var(--rock-line-width) solid @rock-gray-500;
+// set list item hover color
+.PageList .PageListItem > a.PageListPage:hover,
+.PageList .PageListItem.PageListItemHover > a.PageListPage,
+.PageList .PageListItem.PageListItemOpen.PageListItemHover > a.PageListPage {
+  color: var(--rock-pagelist-hover-color);
 }
 
-// adjustments for pagination and more button
+/*
+##### Action Buttons #####
+
+GUIDE:
+By default buttons are a dark gray with good contrast and white text.
+By default buttons have opacity = 1 to make them as readable as possible.
+We add opacity on hover to indicate hover state (works with all primary colors).
+*/
+
+// default button and text color
+.PageList .uk-pagination a,
+.PageList .PageListActions a {
+  color: white;
+  background-color: var(--rock-gray-800);
+  opacity: 1;
+}
+// button hover color
+.PageList .uk-pagination a:hover,
+.PageList .PageListActions a:hover {
+  background-color: var(--rock-gray-800);
+  opacity: var(--rock-action-hover-opacity);
+}
+// primary action color
+.PageList .uk-pagination .uk-active a,
+.PageList .PageListActions li.PageListActionEdit a {
+  background-color: var(--rock-primary) !important;
+}
+// move button
+.PageList .PageListMoveNote a {
+  background-color: var(--rock-primary);
+  &:hover {
+    opacity: var(--rock-action-hover-opacity);
+  }
+}
+// pagination and more button
 .PageList > ul.PageListActions,
 ul.uk-pagination {
   padding-left: 5px;
 }
 
-// special pages: hidden/unpublished
-.PageListStatusHidden,
-.PageListStatusUnpublished,
-.PageListStatusHidden:hover {
-  font-style: italic;
-  // text opacity
-  a.PageListPage.label {
-    opacity: @rock-special-opacity !important;
+/*
+##### Vertical Spacing #####
+
+GUIDE
+Spacing is applied as padding on the <a> tags.
+This is to make hover-effects for the action buttons apply directly on line change and not only when the new line's anchor is hovered.
+*/
+.PageList .PageListItem > a {
+  display: inline-block;
+  padding-top: var(--rock-pagelist-padding-y);
+  padding-bottom: var(--rock-pagelist-padding-y);
+}
+
+/*
+##### Horizontal Spacing / Indentation #####
+*/
+.PageListRoot > .PageList {
+  // this moves the vertical line directly below the chevron toggle
+  .PageList {
+    margin-left: var(--rock-level-indent);
+  }
+  // root level indent line
+  > .PageList {
+    margin-left: var(--rock-first-level-indent);
   }
 }
-.PageListStatusUnpublished,
-.PageListStatusUnpublished:hover,
-.PageListNotPublic,
-.PageListNotPublic:hover,
-.PageListNoFile,
-.PageListNoFile:hover {
-  // light muted background
-  background-color: @rock-gray-100 !important;
+
+/*
+##### Indentation Lines #####
+
+GUIDE
+Indentation lines help to see levels on more complex trees.
+Line width is adjustable via variables.
+*/
+
+// default line width and style
+.PageList .PageList,
+.PageList .PageListItem {
+  border-left-width: var(--rock-pagelist-line-width);
+  border-left-style: solid;
 }
-.PageListNoFile,
-.PageListNoFile:hover {
+// default line color
+.PageList .PageList {
+  border-left-color: var(--rock-line-color);
+}
+// using :not(.fake-important) to increase specificity
+.PageList .PageListItem:not(.fake-important) {
+  border-left-color: var(--rock-status-public);
   &::before {
-    color: transparent !important;
-    border-top: 2px dashed @rock-gray-300;
-    transform: translateY(9px);
+    color: var(--rock-status-public);
+  }
+  &.PageListNotPublic,
+  &.PageListNoFile {
+    border-left-color: transparent;
+    &::before {
+      color: var(--rock-line-color);
+    }
+  }
+  &.PageListStatusHidden {
+    border-left-color: var(--rock-status-hidden);
+    &::before {
+      color: var(--rock-status-hidden);
+    }
+  }
+  &.PageListStatusUnpublished {
+    border-left-color: var(--rock-status-unpublished);
+    &::before {
+      color: var(--rock-status-unpublished);
+    }
   }
 }
-
-.PageListID1,
-.PageListID1:hover {
-  // no background on root page
-  background-color: transparent !important;
-}
-.PageList .PageListStatusUnpublished a.PageListPage > span,
-.PageList .PageListStatusUnpublished a.PageListPage {
-  // no strikethrough etc
-  text-decoration: none !important;
+// no line on the root item
+.PageListRoot > .PageList > .PageListItem {
+  border-left-width: 0px;
 }
 
-// page status indicators
+/*
+##### Page Status Indicators #####
+
+GUIDE
+Page Status Indicators are realised with both color and symbol to make it as accessible
+as possible (think of people not seeing well or not seeing colors!).
+-- means published
+-/ means hidden
+-X means unpublished
+
+Most often the most important distinction is whether a page is viewable or not.
+This is not always easy, because ProcessWire supports complex access levels!
+But the most important fact is most likely whether a page is viewable by guest users or not.
+That's why this style adds a muted background to all pages that are not viewable by guests.
+*/
+
+// reset padding
+.PageList .PageListItem {
+  padding: 0;
+}
+// default style of the before pseudo element
 .PageListItem::before {
   display: inline-block;
-  content: "--";
-  // font-family: fontAwesome;
+  // use a monospace font for status indicators to result in equal width
   font-family: "Courier New", Courier, monospace;
-  margin-right: 0.5rem;
-  margin-left: -0.7rem;
-  margin-bottom: 0.25rem;
-  color: green;
-  // font-size: 12px;
+  // move toggle a little to the right
+  margin-right: 5px;
+  // default symbol is --
+  content: "--";
 }
 .PageListStatusHidden::before {
   content: "-/";
-  color: orange;
-  opacity: @rock-pagestatus-opacity;
 }
 .PageListStatusUnpublished::before {
-  content: "-x";
-  color: red;
-  opacity: @rock-pagestatus-opacity;
+  content: "-X";
 }
-
-// no page status on root page
-.PageListID1::before {
-  display: inline-block;
-  content: "";
-}
-
-// moving/sorting improvements
+.PageListID1::before,
 .PageListPlaceholderItem::before {
-  // no status-indicator
   content: "";
+  margin-right: 0;
 }
-.PageListSortPlaceholder {
-  // align left border with other pagelist items
-  margin-left: calc(-1 * var(--rock-line-width));
-  border-left: 2px solid @rock-gray-700 !important;
+// make label of special pages italic
+// but don't make action buttons italic as well
+.PageListStatusHidden,
+.PageListStatusUnpublished,
+.PageListNotPublic,
+.PageListNoFile {
+  > a.label {
+    font-style: italic;
+  }
+}
+// special page opacity
+.PageList .PageListItem {
+  &.PageListStatusHidden,
+  &.PageListStatusUnpublished,
+  &.PageListNotPublic,
+  &.PageListNoFile {
+    > a.PageListPage {
+      opacity: var(--rock-special-opacity);
+    }
+  }
+}
+// light muted background
+.PageList .PageListItem {
+  &.PageListStatusUnpublished,
+  &.PageListNotPublic,
+  &.PageListNoFile {
+    background-color: var(--rock-gray-200);
+  }
+}
 
+/*
+##### Sorting #####
+*/
+.PageListSortPlaceholder {
   // set the height of the placeholder to the same as other lines
   // this is at the moment hardcoded and should be made dynamic
-  height: 41px !important;
-}
-.PageListPlaceholder {
-  height: 10px;
-  outline: 1px dashed @rock-gray-300;
-  margin-top: -4px !important;
-}
-
-// alignment of root children
-.PageListRoot > .PageList > .PageList {
-  margin-left: 0;
+  height: var(--rock-sortplaceholder-height) !important;
 }
