@@ -1,7 +1,7 @@
 @rock-padding-y: 7px; // defines the line-height of pagelist items
 @rock-pagelist-color: @rock-gray-800; // pagelist item color
 @rock-special-opacity: 0.9; // opacity of special pages (hidden/unpub)
-@rock-pagestatus-opacity: 0.5; // opacity of status indicator icons of special pages (hidden/unpub)
+@rock-pagestatus-opacity: 1; // opacity of status indicator icons of special pages (hidden/unpub)
 
 .PageListRoot {
   // border width of tree lines
@@ -9,6 +9,10 @@
 
   // 30px matches the toggle icon
   --rock-indent-width: 30px;
+
+  --rock-hidden-color: #343434;
+  --rock-visible-color: #343434;
+  --rock-unpublished-color: #343434;
 }
 
 // page list item color
@@ -117,7 +121,7 @@ ul.uk-pagination {
 .PageListNoFile:hover {
   &::before {
     color: transparent !important;
-    border-top: 2px dashed @rock-gray-300;
+    border-top: 2px dashed @rock-gray-900;
     transform: translateY(9px);
   }
 }
@@ -142,17 +146,17 @@ ul.uk-pagination {
   margin-right: 0.5rem;
   margin-left: -0.7rem;
   margin-bottom: 0.25rem;
-  color: green;
+  color: var(--rock-visible-color);
   // font-size: 12px;
 }
 .PageListStatusHidden::before {
-  content: "-/";
-  color: orange;
+  content: url("../modules/AdminStyleRock/svg/test.svg");
+  color: var(--rock-hidden-color);
   opacity: @rock-pagestatus-opacity;
 }
 .PageListStatusUnpublished::before {
-  content: "-x";
-  color: red;
+  content: "-X";
+  color: var(--rock-unpublished-color);
   opacity: @rock-pagestatus-opacity;
 }
 
