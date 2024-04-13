@@ -7,7 +7,7 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
 */
 .PageListRoot {
   // border width of tree lines
-  --rock-pagelist-line-width: 1px;
+  --rock-pagelist-line-width: 2px;
   --rock-pagelist-status-width: 3px;
 
   // indentation matches position of chevron
@@ -41,9 +41,9 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
 
 #PageListContainer {
   /*
-##### Overrides #####
-@ryan: Could these be removed from the core?
-*/
+  ##### Overrides #####
+  @ryan: Could these be removed from the core?
+  */
 
   // remove pagelist lines
   .PageList .PageListItem {
@@ -52,15 +52,15 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
   }
 
   /*
-##### Text style and color #####
+  ##### Text style and color #####
 
-GUIDE:
-No text decoration for better readability.
-Good contrast for better readability.
-Status indicators done left of the text by symbol + color.
+  GUIDE:
+  No text decoration for better readability.
+  Good contrast for better readability.
+  Status indicators done left of the text by symbol + color.
 
-@ryan: Crazy selectors necessary to override basic stuff.
-*/
+  @ryan: Crazy selectors necessary to override basic stuff.
+  */
 
   // remove core text decorations
   .PageListRoot {
@@ -84,13 +84,13 @@ Status indicators done left of the text by symbol + color.
   }
 
   /*
-##### Action Buttons #####
+  ##### Action Buttons #####
 
-GUIDE:
-By default buttons are a dark gray with good contrast and white text.
-By default buttons have opacity = 1 to make them as readable as possible.
-We add opacity on hover to indicate hover state (works with all primary colors).
-*/
+  GUIDE:
+  By default buttons are a dark gray with good contrast and white text.
+  By default buttons have opacity = 1 to make them as readable as possible.
+  We add opacity on hover to indicate hover state (works with all primary colors).
+  */
 
   // default button and text color
   .PageList .uk-pagination a,
@@ -124,12 +124,12 @@ We add opacity on hover to indicate hover state (works with all primary colors).
   }
 
   /*
-##### Vertical Spacing #####
+  ##### Vertical Spacing #####
 
-GUIDE
-Spacing is applied as padding on the <a> tags.
-This is to make hover-effects for the action buttons apply directly on line change and not only when the new line's anchor is hovered.
-*/
+  GUIDE
+  Spacing is applied as padding on the <a> tags.
+  This is to make hover-effects for the action buttons apply directly on line change and not only when the new line's anchor is hovered.
+  */
   .PageList .PageListItem > a {
     display: inline-block;
     padding-top: var(--rock-pagelist-padding-y);
@@ -137,8 +137,8 @@ This is to make hover-effects for the action buttons apply directly on line chan
   }
 
   /*
-##### Horizontal Spacing / Indentation #####
-*/
+  ##### Horizontal Spacing / Indentation #####
+  */
   .PageListRoot > .PageList {
     // this moves the vertical line directly below the chevron toggle
     .PageList {
@@ -151,12 +151,12 @@ This is to make hover-effects for the action buttons apply directly on line chan
   }
 
   /*
-##### Indentation Lines #####
+  ##### Indentation Lines #####
 
-GUIDE
-Indentation lines help to see levels on more complex trees.
-Line width is adjustable via variables.
-*/
+  GUIDE
+  Indentation lines help to see levels on more complex trees.
+  Line width is adjustable via variables.
+  */
 
   // default line width and style
   .PageList .PageList {
@@ -203,20 +203,20 @@ Line width is adjustable via variables.
   }
 
   /*
-##### Page Status Indicators #####
+  ##### Page Status Indicators #####
 
-GUIDE
-Page Status Indicators are realised with both color and symbol to make it as accessible
-as possible (think of people not seeing well or not seeing colors!).
--- means published
--/ means hidden
--X means unpublished
+  GUIDE
+  Page Status Indicators are realised with both color and symbol to make it as accessible
+  as possible (think of people not seeing well or not seeing colors!).
+  -- means published
+  -/ means hidden
+  -X means unpublished
 
-Most often the most important distinction is whether a page is viewable or not.
-This is not always easy, because ProcessWire supports complex access levels!
-But the most important fact is most likely whether a page is viewable by guest users or not.
-That's why this style adds a muted background to all pages that are not viewable by guests.
-*/
+  Most often the most important distinction is whether a page is viewable or not.
+  This is not always easy, because ProcessWire supports complex access levels!
+  But the most important fact is most likely whether a page is viewable by guest users or not.
+  That's why this style adds a muted background to all pages that are not viewable by guests.
+  */
 
   // reset padding
   .PageList .PageListItem {
@@ -274,8 +274,8 @@ That's why this style adds a muted background to all pages that are not viewable
   }
 
   /*
-##### Sorting #####
-*/
+  ##### Sorting #####
+  */
   .PageListSortPlaceholder {
     // set the height of the placeholder to the same as other lines
     // this is at the moment hardcoded and should be made dynamic
