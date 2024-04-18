@@ -117,6 +117,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
   private function addDarkmodeToggle(): void
   {
     if ($this->wire->config->ajax) return;
+    if ($this->noDarkmodeToggle) return;
     if ($this->wire->external) return;
     $this->addHookAfter("Page::render", function (HookEvent $event) {
       $html = $event->return;
@@ -264,6 +265,14 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
         <a href='{$this->wire->pages->get(2)->url}module/edit?name=AdminThemeUikit'>AdminThemeUikit</a>.";
     }
     $inputfields->add($f);
+
+    $inputfields->add([
+      'type' => 'checkbox',
+      'name' => 'noDarkmodeToggle',
+      'icon' => 'moon-o',
+      'checked' => $this->noDarkmodeToggle ? 'checked' : '',
+      'label' => 'Don\'t add darkmode-toggle to backend navbar',
+    ]);
 
     $inputfields->add([
       'type' => 'textarea',
