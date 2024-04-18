@@ -19,6 +19,7 @@ Button: Click
   padding-left: 0;
 }
 
+// highlight all inputfields with primary color left border
 .uk-input,
 .uk-select,
 .uk-textarea,
@@ -26,6 +27,11 @@ Button: Click
 .InputfieldTinyMCE .InputfieldTinyMCEInline:not(.fake-important) {
   border: 1px solid var(--rock-gray-300);
   border-left: 3px solid var(--rock-primary);
+}
+
+// move notes closer to their inputfields
+p.notes:not(.fake-important) {
+  margin-top: 10px;
 }
 
 // .Inputfield,
