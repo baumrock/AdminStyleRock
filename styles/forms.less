@@ -1,3 +1,11 @@
+/*
+GUIDE:
+Primary Color means "I can do something here"
+Link: Click
+Input: Fill
+Button: Click
+*/
+
 // /*
 // ##### Variables #####
 // */
@@ -5,10 +13,20 @@
 //   --rock-inputfield-linewidth: 2px;
 // }
 
-// // remove padding from tabs in page edit screen
-// .uk-tab > * {
-//   padding-left: 0;
-// }
+// remove padding from tabs in page edit screen
+// @ryan can we move that from core to reno?
+.uk-tab > * {
+  padding-left: 0;
+}
+
+.uk-input,
+.uk-select,
+.uk-textarea,
+.uk-checkbox:not(:checked),
+.InputfieldTinyMCE .InputfieldTinyMCEInline:not(.fake-important) {
+  border: 1px solid var(--rock-gray-300);
+  border-left: 3px solid var(--rock-primary);
+}
 
 // .Inputfield,
 // .InputfieldFieldset > .InputfieldContent > .Inputfields .Inputfield {
