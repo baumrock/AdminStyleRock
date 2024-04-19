@@ -6,12 +6,12 @@ Input: Fill
 Button: Click
 */
 
-// /*
-// ##### Variables #####
-// */
-// html {
-//   --rock-inputfield-linewidth: 2px;
-// }
+/*
+##### Variables #####
+*/
+html {
+  --rock-input-borderwidth: 2px;
+}
 
 // remove padding from tabs in page edit screen
 // @ryan can we move that from core to reno?
@@ -19,15 +19,25 @@ Button: Click
   padding-left: 0;
 }
 
-// highlight all inputfields with primary color left border
+// inputfield highlight to make them more visible
+// only action items are primary color (buttons, links)
+// inputfields, checkboxes, radios are dark gray
 .uk-input,
 .uk-select,
 .uk-textarea,
 .uk-checkbox:not(:checked),
 .InputfieldTinyMCE .InputfieldTinyMCEInline:not(.fake-important) {
   border: 1px solid var(--rock-gray-300);
-  border-left: 3px solid var(--rock-primary);
-  border-bottom: 1px solid var(--rock-gray-700);
+  // border-left: 3px solid var(--rock-primary);
+  border-bottom: var(--rock-input-borderwidth) solid var(--rock-gray-900);
+  // border-bottom: 2px solid var(--rock-primary);
+}
+:not(.fake-important) {
+  .uk-radio:checked,
+  .uk-checkbox:checked,
+  .uk-checkbox:indeterminate {
+    background-color: var(--rock-gray-900);
+  }
 }
 
 // move notes closer to their inputfields
