@@ -39,6 +39,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     // add alfred style overrides
     $this->addHookAfter('RockFrontend::addAlfredStyles', $this, 'addAlfredStyles');
     $this->addHookAfter('Page::render', $this, 'addCssVariables');
+    if ($this->wire->user->isSuperuser()) $this->addKitchenSink();
 
     // do everything below only on admin pages
     if ($this->wire->page->template != 'admin') return;
@@ -138,6 +139,81 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
         $html
       );
       $event->return = $html;
+    });
+  }
+
+  protected function addKitchenSink(): void
+  {
+    $this->addHookAfter('InputfieldForm::render', function ($event) {
+      if ($event->object->id !== 'ModuleEditForm') return;
+      if ($this->wire->input->get->name !== 'AdminStyleRock') return;
+
+      $form = new InputfieldForm();
+
+      $fs = new InputfieldFieldset();
+      $fs->name = "kitchensink";
+      $fs->label = 'Kitchen Sink';
+      $fs->icon = 'paint-brush';
+      $fs->collapsed = Inputfield::collapsedYesAjax;
+      $form->add($fs);
+
+      $fs->add([
+        'type' => 'text',
+        'label' => 'Demo Text Input',
+        'notes' => 'Demo Note',
+        'name' => 'demotext',
+      ]);
+      $fs->add([
+        'type' => 'textarea',
+        'label' => 'Demo Textarea',
+        'name' => 'demotextarea',
+      ]);
+      $fs->add([
+        'type' => 'checkbox',
+        'label' => 'Demo Checkbox',
+        'name' => 'democheckbox',
+      ]);
+      $fs->add([
+        'type' => 'select',
+        'label' => 'Demo Select',
+        'options' => [
+          'option1' => 'Option 1',
+          'option2' => 'Option 2',
+          'option3' => 'Option 3',
+        ],
+        'value' => 'option1',
+        'name' => 'demoselect',
+      ]);
+      $fs->add([
+        'type' => 'radios',
+        'label' => 'Demo Radios',
+        'name' => 'demoradios',
+        'options' => [
+          'option1' => 'Option 1',
+          'option2' => 'Option 2',
+          'option3' => 'Option 3',
+        ],
+      ]);
+      $fs->add([
+        'type' => 'toggle',
+        'label' => 'Demo Toggle',
+        'value' => 'yes',
+        'name' => 'demotoggle',
+      ]);
+      $fs->add([
+        'type' => 'asmSelect',
+        'label' => 'Demo ASM Select',
+        'name' => 'demoasm',
+        'options' => [
+          'option1' => 'ASM Option 1',
+          'option2' => 'ASM Option 2',
+          'option3' => 'ASM Option 3',
+        ],
+        'value' => ['option1'], // Default selected value
+        'description' => 'This is a demo ASM Select field.',
+      ]);
+
+      $event->return = $form->render() . $event->return;
     });
   }
 
