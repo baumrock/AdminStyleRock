@@ -44,13 +44,13 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     // do everything below only on admin pages
     if ($this->wire->page->template != 'admin') return;
 
-    $this->addDarkmodeToggle();
-
+    // add darkmode script + toggle
     $config = $this->wire()->config;
-    $min = !$config->debug;
+    $config->scripts->add($config->urls($this) . "DarkmodeToggle.js");
 
     $style = $config->paths($this) . "styles/_rock.less";
     $compiled = $config->paths->assets . "admin";
+    $min = !$config->debug;
     if ($min) $compiled .= ".min.css";
     else $compiled .= ".css";
 
@@ -113,33 +113,6 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
       "<style>{$this->tmpCustomCss}</style></head>",
       $event->return
     );
-  }
-
-  private function addDarkmodeToggle(): void
-  {
-    if ($this->wire->config->ajax) return;
-    if ($this->noDarkmodeToggle) return;
-    if ($this->wire->external) return;
-    $this->addHookAfter("Page::render", function (HookEvent $event) {
-      $html = $event->return;
-      $icon = '<div>
-        <a class="uk-link-reset asr-show-light" data-darkmode=1 title="Dark mode" uk-tooltip><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"/></svg></a>
-        <a class="uk-link-reset asr-show-dark" data-darkmode=0 title="Light mode" uk-tooltip><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 1 0-5.656-5.656a4 4 0 0 0 5.656 5.656zm-8.485 2.829l-1.414 1.414M6.343 6.343L4.929 4.929m12.728 1.414l1.414-1.414m-1.414 12.728l1.414 1.414M4 12H2m10-8V2m8 10h2m-10 8v2"/></svg></a>
-      </div>';
-      $html = str_replace(
-        '<div class="uk-navbar-right">',
-        '<div class="uk-navbar-right">' . $icon,
-        $html
-      );
-
-      $url = $this->wire->config->urls($this) . "DarkmodeToggle.js";
-      $html = str_replace(
-        '</head>',
-        "<script src='$url'></script></head>",
-        $html
-      );
-      $event->return = $html;
-    });
   }
 
   protected function addKitchenSink(): void
