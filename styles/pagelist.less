@@ -262,6 +262,10 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
   .PageListNoFile {
     > a.label {
       font-style: italic;
+      // make sure the chevron is not italic
+      &::before {
+        font-style: normal;
+      }
     }
   }
   // special page opacity
