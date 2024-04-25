@@ -23,13 +23,11 @@ html {
 .uk-input,
 .uk-select,
 .uk-textarea,
-.uk-checkbox:not(:checked),
+.uk-checkbox,
+.uk-radio,
+.uk-button-default,
 .InputfieldTinyMCE .InputfieldTinyMCEInline:not(.fake-important) {
-  border: 1px solid var(--rock-gray-300);
-  // border-left: 3px solid var(--rock-primary);
-  border-bottom: var(--rock-input-borderwidth) solid var(--rock-gray-900);
-  // border-bottom: 2px solid var(--rock-primary);
-  // background-color: var(--rock-gray-200);
+  border: 1px solid var(--rock-gray-500);
 }
 :not(.fake-important) {
   .uk-radio:checked,
@@ -39,12 +37,26 @@ html {
   }
 }
 
+// inputfields get some vertical space
+// and box shadow to make them stand out more
+ul.Inputfields {
+  row-gap: 10px;
+  > li.Inputfield:not(.WireTab) {
+    box-shadow: 0 0px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
 // move notes closer to their inputfields
 // and make the border highlight less aggressive
 p.notes:not(.fake-important) {
   margin-top: 10px;
-  background-color: var(--rock-gray-100);
   border-left: 0;
+  padding-left: 5px;
+
+  // background is transparent black
+  // this makes it work both on white inputfields and on
+  // gray fieldsets, where gray-100 would not stand out at all
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 // make ASM list items gray
@@ -62,43 +74,12 @@ p.notes:not(.fake-important) {
   background-color: var(--rock-gray-600);
 }
 
-// .Inputfield,
-// .InputfieldFieldset > .InputfieldContent > .Inputfields .Inputfield {
-//   outline: var(--rock-inputfield-linewidth) solid white;
-//   &.rpb-item {
-//     outline: 0;
-//     background-color: var(--rock-gray-300) !important;
-//   }
-//   background-color: var(--rock-gray-200);
-//   > .InputfieldHeader,
-//   > .InputfieldHeader:hover:not(.fake-important) {
-//     background-color: transparent;
-//   }
-//   > .InputfieldContent {
-//     background-color: transparent;
-//   }
-// }
-
-// repeater and asm select items
-// .InputfieldFileList > li > .InputfieldItemHeader,
-// .InputfieldFileList > li > .InputfieldItemHeader:hover,
-// .Inputfields
-//   .InputfieldRepeater
-//   .InputfieldContent
-//   .InputfieldRepeaterItem
-//   > .InputfieldHeader,
-// .pw-content li.ui-state-default,
-// .pw-content .ui-widget-content li.ui-state-default,
-// .pw-content .ui-widget-content li.ui-state-hover {
-//   outline: 0;
-//   border: 0;
-//   background-color: var(--rock-gray-300);
-//   color: var(--rock-global-color);
-//   .InputfieldFileName {
-//     color: var(--rock-global-color);
-//   }
-// }
-
-// p.notes {
-//   background-color: var(--rock-gray-100);
-// }
+// Toggle
+.InputfieldToggleGroup label:not(.InputfieldToggleCurrent) {
+  opacity: 0.5;
+}
+.InputfieldToggleCurrent {
+  outline: 2px solid #3e3e3e;
+  font-weight: bold;
+  z-index: 1;
+}

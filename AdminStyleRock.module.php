@@ -134,6 +134,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
       $fs->name = "kitchensink";
       $fs->label = 'Kitchen Sink';
       $fs->icon = 'paint-brush';
+      $fs->notes = "Kitchen Sink Demo Note";
       $fs->collapsed = $this->wire->input->debug
         ? Inputfield::collapsedNo
         : Inputfield::collapsedYesAjax;
