@@ -1,6 +1,14 @@
 // define primary color (if not set via config)
 @rock-primary: #008660;
 
+// @ryan
+// early stage idea
+// can we move those colors to the base theme (eg --pw-gray-200)?
+// then all styles could inherit those colors
+// and all module developers could rely on them.
+// the problem now is that modules use their own colors
+// often based on reno, which make the style break when
+// someone uses AdminStyleRock or any other style/theme
 html {
   --rock-primary: @rock-primary;
 
