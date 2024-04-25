@@ -117,9 +117,16 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
 
   protected function addKitchenSink(): void
   {
+    if ($this->wire->input->get->name !== 'AdminStyleRock') return;
+
+    if ($this->wire->input->debug) {
+      $this->message("Demo Alert Message");
+      $this->warning("Demo Alert Warning");
+      $this->error("Demo Alert Error");
+    }
+
     $this->addHookAfter('InputfieldForm::render', function ($event) {
       if ($event->object->id !== 'ModuleEditForm') return;
-      if ($this->wire->input->get->name !== 'AdminStyleRock') return;
 
       $form = new InputfieldForm();
 
@@ -127,7 +134,12 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
       $fs->name = "kitchensink";
       $fs->label = 'Kitchen Sink';
       $fs->icon = 'paint-brush';
-      $fs->collapsed = Inputfield::collapsedYesAjax;
+      $fs->collapsed = $this->wire->input->debug
+        ? Inputfield::collapsedNo
+        : Inputfield::collapsedYesAjax;
+      $fs->description = 'In RockFrontend you can enable livereload also for module pages like this, which is handy when working on the style to get live preview.
+        You can add <a href="?name=AdminStyleRock&debug=1">&debug=1</a> to this page\'s url to open Kitchen Sink by default and to show demo alerts.';
+      $fs->entityEncodeText = false;
       $form->add($fs);
 
       $fs->add([
@@ -135,16 +147,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
         'label' => 'Demo Text Input',
         'notes' => 'Demo Note',
         'name' => 'demotext',
-      ]);
-      $fs->add([
-        'type' => 'textarea',
-        'label' => 'Demo Textarea',
-        'name' => 'demotextarea',
-      ]);
-      $fs->add([
-        'type' => 'checkbox',
-        'label' => 'Demo Checkbox',
-        'name' => 'democheckbox',
+        'columnWidth' => 33,
       ]);
       $fs->add([
         'type' => 'select',
@@ -156,22 +159,14 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
         ],
         'value' => 'option1',
         'name' => 'demoselect',
+        'columnWidth' => 33,
       ]);
       $fs->add([
-        'type' => 'radios',
-        'label' => 'Demo Radios',
-        'name' => 'demoradios',
-        'options' => [
-          'option1' => 'Option 1',
-          'option2' => 'Option 2',
-          'option3' => 'Option 3',
-        ],
-      ]);
-      $fs->add([
-        'type' => 'toggle',
-        'label' => 'Demo Toggle',
-        'value' => 'yes',
-        'name' => 'demotoggle',
+        'type' => 'checkbox',
+        'label' => 'Demo Checkbox',
+        'checkboxLabel' => 'Demo Checkbox Label',
+        'name' => 'democheckbox',
+        'columnWidth' => 33,
       ]);
       $fs->add([
         'type' => 'asmSelect',
@@ -184,6 +179,56 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
         ],
         'value' => ['option1'], // Default selected value
         'description' => 'This is a demo ASM Select field.',
+      ]);
+      $fs->add([
+        'type' => 'textarea',
+        'label' => 'Demo Textarea',
+        'name' => 'demotextarea',
+        'columnWidth' => 33,
+      ]);
+      $fs->add([
+        'type' => 'radios',
+        'label' => 'Demo Radios',
+        'name' => 'demoradios',
+        'options' => [
+          'option1' => 'Option 1',
+          'option2' => 'Option 2',
+          'option3' => 'Option 3',
+        ],
+        'columnWidth' => 33,
+      ]);
+      $fs->add([
+        'type' => 'toggle',
+        'label' => 'Demo Toggle',
+        'value' => 'yes',
+        'name' => 'demotoggle',
+        'columnWidth' => 33,
+      ]);
+      $this->wire->modules->get('JqueryUI')->use('vex');
+      $fs->add([
+        'type' => 'markup',
+        'value' => '
+          <button class="ui-button open-vex">VEX Demo</button>
+          <a href=# class=open-vex>VEX Demo</a>
+          <script>
+          $(document).ready(function() {
+            $(".open-vex").click(function(e) {
+              e.preventDefault();
+              ProcessWire.alert("Demo VEX Alert");
+            });
+          });
+          </script>
+        ',
+      ]);
+      $fs->add([
+        'type' => 'markup',
+        'label' => 'UIkit Notifications',
+        'value' => '
+          <button class="uk-button uk-button-default demo" type="button" onclick="UIkit.notification({message: \'Primary message…\', status: \'primary\', timeout: 15000})">Primary</button>
+          <button class="uk-button uk-button-default demo" type="button" onclick="UIkit.notification({message: \'Success message…\', status: \'success\', timeout: 15000})">Success</button>
+          <button class="uk-button uk-button-default demo" type="button" onclick="UIkit.notification({message: \'Warning message…\', status: \'warning\', timeout: 15000})">Warning</button>
+          <button class="uk-button uk-button-default demo" type="button" onclick="UIkit.notification({message: \'Danger message…\', status: \'danger\', timeout: 15000})">Danger</button>
+        ',
       ]);
 
       $event->return = $form->render() . $event->return;
