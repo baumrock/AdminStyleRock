@@ -188,13 +188,6 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
     &::before {
       color: var(--rock-status-public);
     }
-    &.PageListNotPublic,
-    &.PageListNoFile {
-      border-left-color: transparent;
-      &::before {
-        color: var(--rock-line-color);
-      }
-    }
     &.PageListStatusHidden {
       border-left-color: var(--rock-status-hidden);
       &::before {
@@ -205,6 +198,14 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
       border-left-color: var(--rock-status-unpublished);
       &::before {
         color: var(--rock-status-unpublished);
+      }
+    }
+    // nofile comes last to have priority over hidden/unpub
+    &.PageListNotPublic,
+    &.PageListNoFile {
+      border-left-color: transparent;
+      &::before {
+        color: var(--rock-line-color);
       }
     }
   }
