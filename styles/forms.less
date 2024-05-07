@@ -8,7 +8,9 @@ Input has dark gray border-bottom
 ##### Variables #####
 */
 html {
-  --rock-input-borderwidth: 1px;
+  // background color for inputs (radio, checkbox, asm select)
+  --rock-input-bg: var(--rock-gray-800);
+  --rock-fields-border: var(--rock-gray-100);
 }
 
 // remove padding from tabs in page edit screen
@@ -26,23 +28,38 @@ html {
 .uk-checkbox,
 .uk-radio,
 .uk-button-default,
-.InputfieldTinyMCE .InputfieldTinyMCEInline:not(.fake-important) {
-  border: 1px solid var(--rock-gray-500);
+.InputfieldTinyMCE .InputfieldTinyMCEInline:not(.fake-important),
+.Inputfield .selectize-control.single .selectize-input:not(.fake-important) {
+  border-radius: 5px;
+  border: 1px solid var(--rock-gray-400);
+}
+.uk-checkbox {
+  border-radius: 2px;
+}
+.uk-radio {
+  border-radius: 100%;
 }
 :not(.fake-important) {
   .uk-radio:checked,
   .uk-checkbox:checked,
   .uk-checkbox:indeterminate {
-    background-color: var(--rock-gray-900);
+    background-color: var(--rock-input-bg);
   }
+}
+.Inputfield .selectize-control.single .selectize-input:not(.fake-important) {
+  // make selectize have the same background as all other inputfields
+  background-color: white;
 }
 
 // inputfields get some vertical space
 // and box shadow to make them stand out more
-ul.Inputfields {
-  row-gap: 10px;
-  > li.Inputfield:not(.WireTab):not(.InputfieldSubmit):not(.InputfieldButton) {
-    box-shadow: 0 0px 6px rgba(0, 0, 0, 0.1);
+body.ProcessPageEdit {
+  ul.Inputfields {
+    row-gap: 10px;
+  }
+  .WireTab > ul.Inputfields {
+    background-color: var(--rock-fields-border);
+    border: 10px solid var(--rock-fields-border);
   }
 }
 
@@ -66,12 +83,12 @@ p.notes:not(.fake-important) {
     border: 0;
   }
   .asmListItemLabel {
-    background-color: var(--rock-gray-600);
+    background-color: var(--rock-input-bg);
   }
 }
 .InputfieldPageListSelectMultiple > ol > li:not(.fake-important) {
   border: 0;
-  background-color: var(--rock-gray-600);
+  background-color: var(--rock-input-bg);
 }
 
 // Toggle
@@ -82,4 +99,11 @@ p.notes:not(.fake-important) {
   outline: 2px solid #3e3e3e;
   font-weight: bold;
   z-index: 1;
+}
+
+// button colors from css variables
+.ui-button,
+.ui-button.ui-state-default,
+.ui-button.ui-state-hover {
+  background: var(--rock-primary);
 }

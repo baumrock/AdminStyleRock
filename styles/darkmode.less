@@ -1,7 +1,7 @@
 // Invert all elements on the body while attempting to not alter the hue substantially.
 html.asr-dark {
   body {
-    filter: invert(100%) hue-rotate(180deg);
+    filter: invert(93%) hue-rotate(180deg);
   }
 
   // Workarounds and optical adjustments.
@@ -9,7 +9,7 @@ html.asr-dark {
   // Firefox workaround: Set the background colour for the html
   // element separately because, unlike other browsers, Firefox
   // doesn’t apply the filter to the root element’s background.
-  background-color: #111;
+  background-color: #151515;
 
   // Do not invert media (revert the invert).
   img,
@@ -43,6 +43,15 @@ html.asr-dark {
   // Improve contrast on list item markers.
   li::marker {
     color: #666;
+  }
+
+  // Do not invert PW-Styles and other Elements like.
+  .uk-alert-danger,
+  input,
+  button,
+  .uk-checkbox,
+  .uk-button {
+    // filter: invert(100%) hue-rotate(180deg);
   }
 }
 

@@ -2,3 +2,12 @@
  * Things that we had to override from the default backend
  * that should ideally be removed from the core style
  */
+
+// overrides for rockpagebuilder
+// @ryan as long as we have no standard classes all modules
+// have to use custom colors and it will never be possible to support different styles!
+.rpb-buttons {
+  .uk-badge {
+    background: var(--rock-gray-800);
+  }
+}

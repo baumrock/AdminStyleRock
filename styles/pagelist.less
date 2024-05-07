@@ -26,12 +26,12 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
   --rock-muted-background: var(--rock-gray-100);
 
   // indentation guide line color
-  --rock-line-color: var(--rock-gray-300);
+  --rock-line-color: var(--rock-gray-200);
 
   // status colors
-  --rock-status-public: green;
+  --rock-status-public: var(--rock-gray-600);
   --rock-status-hidden: orange;
-  --rock-status-unpublished: red;
+  --rock-status-unpublished: var(--rock-gray-200);
 
   // sort-placeholder height
   --rock-sortplaceholder-height: 41px;
@@ -190,15 +190,15 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
     }
     &.PageListStatusHidden {
       border-left-color: var(--rock-status-hidden);
-      &::before {
-        color: var(--rock-status-hidden);
-      }
+      // &::before {
+      // color: var(--rock-status-hidden);
+      // }
     }
     &.PageListStatusUnpublished {
       border-left-color: var(--rock-status-unpublished);
-      &::before {
-        color: var(--rock-status-unpublished);
-      }
+      // &::before {
+      // color: var(--rock-status-unpublished);
+      // }
     }
     // nofile comes last to have priority over hidden/unpub
     &.PageListNotPublic,

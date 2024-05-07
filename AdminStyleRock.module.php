@@ -11,6 +11,11 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
 {
 
   const prefix = "adminstylerock_";
+  const primary = "#e83561";
+  const primary_h = 345;
+  const primary_s = '80%';
+  const primary_l = '56%';
+  const saturation = '5%';
 
   const field_adminlogo = self::prefix . "adminlogo";
 
@@ -107,10 +112,18 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     if ($page->template != 'admin') return;
     if ($this->wire->config->ajax) return;
     if ($this->wire->config->external) return;
-    if (!$this->tmpCustomCss) return;
+
+    // add styles from styles.php
+    $styles = $this->wire->files->render(__DIR__ . "/styles.php", [
+      'h' => $this->rockprimary_h ?: self::primary_h,
+      's' => $this->rockprimary_s ?: self::primary_s,
+      'l' => $this->rockprimary_l ?: self::primary_l,
+      'l' => $this->rockprimary_l ?: self::primary_l,
+      'saturation' => $this->saturation ?: self::saturation,
+    ]);
     $event->return = str_replace(
       "</head>",
-      "<style>{$this->tmpCustomCss}</style></head>",
+      "$styles</head>",
       $event->return
     );
   }
@@ -316,11 +329,6 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     $modules->saveConfig($m, $data);
   }
 
-  public function ___install()
-  {
-    $this->setLogoUrl($this->wire->config->urls($this) . "baumrock.svg");
-  }
-
   /**
    * Config inputfields
    * @param InputfieldWrapper $inputfields
@@ -329,16 +337,42 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
   {
     $this->iframe($inputfields);
 
-    // add main color
+    $inputfields->add([
+      'type' => 'markup',
+      'label' => 'Color Palette',
+      'icon' => 'paint-brush',
+      'value' => $this->wire->files->render(__DIR__ . "/colorpicker.php", [
+        'rockprimary' => $this->rockprimary ?: self::primary,
+        'saturation' => substr($this->saturation ?: self::saturation, 0, -1),
+      ]),
+    ]);
+
     $inputfields->add([
       'type' => 'text',
       'name' => 'rockprimary',
-      'icon' => 'paint-brush',
-      'notes' => 'eg #00ff00 or rgba(0,0,0,1)',
-      'value' => $this->rockprimary,
-      'label' => 'Primary Color',
-      'description' => 'This color is used as @rock-primary of the rock.less style'
-        . ' and as @alfred-primary for the alfred.less frontend editing style',
+      'value' => $this->rockprimary ?: self::primary,
+      'columnWidth' => 50,
+    ]);
+    $inputfields->add([
+      'type' => 'text',
+      'name' => 'saturation',
+      'value' => $this->saturation ?: self::saturation,
+      'columnWidth' => 50,
+    ]);
+    $inputfields->add([
+      'type' => 'hidden',
+      'name' => 'rockprimary_h',
+      'value' => $this->rockprimary_h,
+    ]);
+    $inputfields->add([
+      'type' => 'hidden',
+      'name' => 'rockprimary_s',
+      'value' => $this->rockprimary_s,
+    ]);
+    $inputfields->add([
+      'type' => 'hidden',
+      'name' => 'rockprimary_l',
+      'value' => $this->rockprimary_l,
     ]);
 
     /** @var RockMigrations $rm */
@@ -367,14 +401,6 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
       'icon' => 'moon-o',
       'checked' => $this->noDarkmodeToggle ? 'checked' : '',
       'label' => 'Don\'t add darkmode-toggle to backend navbar',
-    ]);
-
-    $inputfields->add([
-      'type' => 'textarea',
-      'name' => 'tmpCustomCss',
-      'icon' => 'code',
-      'value' => $this->tmpCustomCss,
-      'label' => 'Custom CSS (for variables)',
     ]);
 
     return $inputfields;

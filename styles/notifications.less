@@ -8,7 +8,7 @@ All notifications have the global dark text color for best visibility (no red te
 */
 
 // background colors
-@alert-primary-background: var(--rock-gray-200);
+@alert-primary-background: var(--rock-gray-100);
 @alert-success-background: #c8e6c9;
 @alert-warning-background: #ffe0b2;
 @alert-danger-background: #ffcdd2;
@@ -41,7 +41,9 @@ All notifications have the global dark text color for best visibility (no red te
 // regular uikit notification popups
 .uk-notification-message {
   color: @global-color;
-  border: 2px solid white;
+  border: 1px solid white;
+  box-shadow: 0 0px 30px rgba(0, 0, 0, 0.2);
+
   &.uk-notification-message-primary {
     background: @alert-primary-background;
   }
