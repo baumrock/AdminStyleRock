@@ -182,7 +182,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
         'label' => 'Demo Checkbox',
         'checkboxLabel' => 'Demo Checkbox Label',
         'name' => 'democheckbox',
-        'columnWidth' => 33,
+        'columnWidth' => 34,
       ]);
       $fs->add([
         'type' => 'asmSelect',
@@ -218,11 +218,12 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
         'label' => 'Demo Toggle',
         'value' => 'yes',
         'name' => 'demotoggle',
-        'columnWidth' => 33,
+        'columnWidth' => 34,
       ]);
       $this->wire->modules->get('JqueryUI')->use('vex');
       $fs->add([
         'type' => 'markup',
+        'label' => 'VEX Demo',
         'value' => '
           <button class="ui-button open-vex">VEX Demo</button>
           <a href=# class=open-vex>VEX Demo</a>
@@ -235,6 +236,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
           });
           </script>
         ',
+        'columnWidth' => 40,
       ]);
       $fs->add([
         'type' => 'markup',
@@ -245,6 +247,7 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
           <button class="uk-button uk-button-default demo" type="button" onclick="UIkit.notification({message: \'Warning message…\', status: \'warning\', timeout: 15000})">Warning</button>
           <button class="uk-button uk-button-default demo" type="button" onclick="UIkit.notification({message: \'Danger message…\', status: \'danger\', timeout: 15000})">Danger</button>
         ',
+        'columnWidth' => 60,
       ]);
 
       $event->return = $form->render() . $event->return;
