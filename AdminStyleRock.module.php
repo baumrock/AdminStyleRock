@@ -153,7 +153,8 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
       $fs->collapsed = $this->wire->input->debug
         ? Inputfield::collapsedNo
         : Inputfield::collapsedYesAjax;
-      $fs->description = 'In RockFrontend you can enable livereload also for module pages like this, which is handy when working on the style to get live preview.
+      $fs->description = 'This is a preview of several fields to help with custom development.
+        In RockFrontend you can enable livereload also for module pages like this, which is handy when working on the style to get live preview.
         You can add <a href="?name=AdminStyleRock&debug=1">&debug=1</a> to this page\'s url to open Kitchen Sink by default and to show demo alerts.';
       $fs->entityEncodeText = false;
       $form->add($fs);
