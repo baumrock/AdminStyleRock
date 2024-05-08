@@ -51,16 +51,30 @@ html {
   background-color: white;
 }
 
-// inputfields get some vertical space
-// and box shadow to make them stand out more
 body.ProcessPageEdit {
+  // inputfields get some vertical space
   ul.Inputfields {
     row-gap: 10px;
   }
+  // add border for better visual separation of fields
   .WireTab > ul.Inputfields {
     background-color: var(--rock-fields-border);
     border: 10px solid var(--rock-fields-border);
   }
+}
+
+// repeater adjustments
+// no additional gap for repeaters
+.InputfieldRepeater > .InputfieldContent > ul.Inputfields {
+  row-gap: 0;
+}
+.Inputfields
+  .InputfieldRepeater
+  .InputfieldContent
+  .InputfieldRepeaterItem
+  > .InputfieldHeader {
+  outline: 0;
+  background-color: var(--rock-input-bg);
 }
 
 // move notes closer to their inputfields
