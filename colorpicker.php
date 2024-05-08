@@ -115,14 +115,20 @@
     let l = document.querySelector('input[name="rockprimary_l"]');
     let saturation = document.querySelector('input[name="saturation"]');
 
-    // make saturation inputfield readonly
-    saturation.readOnly = true;
-
     // update primary field based on color picker
     picker.addEventListener('input', (e) => {
       let hex = e.target.value;
       primary.value = hex;
       primary.dispatchEvent(new Event('input'));
+    });
+
+    // update slider if saturation field was changed
+    saturation.addEventListener('input', (e) => {
+      let val = e.target.value.replace('%', '');
+      let sat = val + '%';
+      slider.value = val;
+      html.style.setProperty('--rock-gray-saturation', sat);
+      e.target.value = sat;
     });
 
     // update saturation field based on slider
