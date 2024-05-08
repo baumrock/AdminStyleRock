@@ -2,6 +2,10 @@
 GUIDE:
 Primary Color for action items (buttons and links)
 Input has dark gray border-bottom
+
+@ryan
+can we introduce an input-bg color that is used for checkboxes, radios,
+asm select, page select etc?
 */
 
 /*
@@ -75,6 +79,12 @@ body.ProcessPageEdit {
   > .InputfieldHeader {
   outline: 0;
   background-color: var(--rock-input-bg);
+}
+
+// page field
+.pw-content li.ui-state-default,
+.pw-content .ui-widget-content li.ui-state-default {
+  background: var(--rock-input-bg) !important;
 }
 
 // move notes closer to their inputfields
