@@ -205,9 +205,9 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
     &.PageListNotPublic,
     &.PageListNoFile {
       border-left-color: var(--rock-status-nofile);
-      &::before {
-        color: var(--rock-line-color);
-      }
+      // &::before {
+      //   color: var(--rock-line-color);
+      // }
     }
   }
   // no line on the root item
@@ -252,7 +252,7 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
     content: "-X";
   }
   .PageListNoFile::before {
-    content: "-!";
+    content: "=X";
   }
   .PageListID1::before,
   .PageListPlaceholderItem::before {
