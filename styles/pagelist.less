@@ -31,7 +31,8 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
   // status colors
   --rock-status-public: var(--rock-gray-600);
   --rock-status-hidden: orange;
-  --rock-status-unpublished: var(--rock-gray-200);
+  --rock-status-unpublished: var(--rock-gray-300);
+  --rock-status-nofile: var(--rock-gray-200);
 
   // sort-placeholder height
   --rock-sortplaceholder-height: 41px;
@@ -203,7 +204,7 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
     // nofile comes last to have priority over hidden/unpub
     &.PageListNotPublic,
     &.PageListNoFile {
-      border-left-color: transparent;
+      border-left-color: var(--rock-status-nofile);
       &::before {
         color: var(--rock-line-color);
       }
@@ -249,6 +250,9 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
   }
   .PageListStatusUnpublished::before {
     content: "-X";
+  }
+  .PageListNoFile::before {
+    content: "-!";
   }
   .PageListID1::before,
   .PageListPlaceholderItem::before {
