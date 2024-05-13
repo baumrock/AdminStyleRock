@@ -6,6 +6,7 @@
 // overrides for rockpagebuilder
 // @ryan as long as we have no standard classes all modules
 // have to use custom colors and it will never be possible to support different styles!
+// Problem with image overlay color: https://i.imgur.com/PQVxVvA.png
 .rpb-buttons {
   .uk-badge {
     background: var(--rock-gray-800);
@@ -22,4 +23,7 @@ li.rpb-item
     background: var(--rock-input-bg);
     color: white;
   }
+}
+li.rpb-item > .InputfieldContent:not(.fake-important) {
+  padding-top: 7px;
 }
