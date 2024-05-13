@@ -117,11 +117,10 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
 
     // add styles from styles.php
     $styles = $this->wire->files->render(__DIR__ . "/styles.php", [
-      'h' => $this->rockprimary_h ?: self::primary_h,
-      's' => $this->rockprimary_s ?: self::primary_s,
-      'l' => $this->rockprimary_l ?: self::primary_l,
-      'l' => $this->rockprimary_l ?: self::primary_l,
-      'saturation' => $this->saturation ?: self::saturation,
+      'h' => $this->rockprimary_h === null ? self::primary_h : $this->rockprimary_h,
+      's' => $this->rockprimary_s === null ? self::primary_s : $this->rockprimary_s,
+      'l' => $this->rockprimary_l === null ? self::primary_l : $this->rockprimary_l,
+      'saturation' => $this->saturation === null ? self::saturation : $this->saturation,
     ]);
     $event->return = str_replace(
       "</head>",
