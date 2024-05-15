@@ -64,7 +64,13 @@ ul.Inputfields {
 }
 .InputfieldContent > ul.Inputfields,
 .InputfieldWrapper > ul.Inputfields {
+  // remove padding for nested items
   padding: 0;
+}
+.InputfieldRepeaterItem > .InputfieldContent > ul.Inputfields {
+  // add space inside repeater items
+  padding: 10px;
+  background: var(--rock-gray-100);
 }
 
 // repeater adjustments
