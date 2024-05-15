@@ -56,16 +56,15 @@ html {
   background-color: white;
 }
 
-body.ProcessPageEdit {
-  // inputfields get some vertical space
-  ul.Inputfields {
-    row-gap: 10px;
-  }
-  // add border for better visual separation of fields
-  .WireTab > ul.Inputfields {
-    background-color: var(--rock-fields-border);
-    border: 10px solid var(--rock-fields-border);
-  }
+// make 10px gray borders around all inputfields
+ul.Inputfields {
+  row-gap: 10px;
+  padding: 10px;
+  background: var(--rock-gray-100);
+}
+.InputfieldContent > ul.Inputfields,
+.InputfieldWrapper > ul.Inputfields {
+  padding: 0;
 }
 
 // repeater adjustments
