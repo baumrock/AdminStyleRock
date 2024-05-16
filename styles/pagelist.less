@@ -53,6 +53,14 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
     border-bottom-width: 0;
   }
 
+  // gray border around the whole page tree
+  .PageList {
+    margin: 0;
+  }
+  border: 10px solid var(--rock-gray-100);
+  padding: 15px;
+  padding-top: 5px;
+
   /*
   ##### Text style and color #####
 
@@ -235,6 +243,7 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
   .PageList .PageListItem {
     padding: 0;
   }
+
   // default style of the before pseudo element
   .PageListItem::before {
     display: inline-block;
