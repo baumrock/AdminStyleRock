@@ -41,6 +41,18 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
   --rock-action-hover-opacity: 0.8;
 }
 
+// gray border around the whole page tree
+body.ProcessPageList {
+  #PageListContainer {
+    border: 10px solid var(--rock-gray-100);
+    padding: 15px;
+    padding-top: 5px;
+  }
+  .PageList {
+    margin: 0;
+  }
+}
+
 #PageListContainer {
   /*
   ##### Overrides #####
@@ -52,14 +64,6 @@ which would be extremely helpful (eg link color in Fluency or Breadcrumbs)
     border-bottom: none;
     border-bottom-width: 0;
   }
-
-  // gray border around the whole page tree
-  .PageList {
-    margin: 0;
-  }
-  border: 10px solid var(--rock-gray-100);
-  padding: 15px;
-  padding-top: 5px;
 
   /*
   ##### Text style and color #####
