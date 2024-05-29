@@ -49,11 +49,10 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     // do everything below only on admin pages
     if ($this->wire->page->template != 'admin') return;
 
-    // add darkmode script + toggle
+    // add AdminStyleRock JS to backend
     $config = $this->wire()->config;
-    if (!$this->noDarkmodeToggle) {
-      $config->scripts->add($config->urls($this) . "DarkmodeToggle.js");
-    }
+    $config->scripts->add($config->urls($this) . "AdminStyleRock.js");
+    $config->js('asrDarkmodeToggle', !$this->noDarkmodeToggle);
 
     $style = $config->paths($this) . "styles/_rock.less";
     $compiled = $config->paths->assets . "admin";
