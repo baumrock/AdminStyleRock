@@ -49,6 +49,8 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     // do everything below only on admin pages
     if ($this->wire->page->template != 'admin') return;
 
+    $this->wire->adminTheme->addBodyClass('AdminStyleRock');
+
     // add AdminStyleRock JS to backend
     $config = $this->wire()->config;
     $config->scripts->add($config->urls($this) . "AdminStyleRock.js");

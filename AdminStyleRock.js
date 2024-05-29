@@ -1,7 +1,3 @@
-$(document).ready(() => {
-  $("body").addClass("AdminStyleRock");
-});
-
 // add darkmode toggle to navbar
 (() => {
   if (!ProcessWire.config.asrDarkmodeToggle) return;
