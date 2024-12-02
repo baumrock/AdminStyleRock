@@ -1,0 +1,37 @@
+/**
+ * Things that we had to override from the default backend
+ * that should ideally be removed from the core style
+ */
+
+// overrides for rockpagebuilder
+// @ryan as long as we have no standard classes all modules
+// have to use custom colors and it will never be possible to support different styles!
+// Problem with image overlay color: https://i.imgur.com/PQVxVvA.png
+.rpb-buttons {
+  .uk-badge {
+    background: var(--rock-gray-800);
+  }
+}
+li.rpb-item
+  > label:not(.fake-important):not(.fake-important):not(.fake-important) {
+  background: var(--rock-input-bg);
+  color: white;
+  i {
+    color: white;
+  }
+  &:hover {
+    background: var(--rock-input-bg);
+    color: white;
+  }
+}
+li.rpb-item > .InputfieldContent:not(.fake-important) {
+  padding-top: 7px;
+}
+.rpb-items > ul.Inputfields {
+  padding: 0;
+  background-color: transparent;
+}
+
+body.modal #ProcessPageEdit {
+  margin: 0;
+}

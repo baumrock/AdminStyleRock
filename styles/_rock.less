@@ -1,0 +1,27 @@
+// define primary color (if not set via config)
+@rock-primary: #e83561;
+
+// @ryan
+// early stage idea
+// can we move those colors to the base theme (eg --pw-gray-200)?
+// then all styles could inherit those colors
+// and all module developers could rely on them.
+// the problem now is that modules use their own colors
+// often based on reno, which make the style break when
+// someone uses AdminStyleRock or any other style/theme
+
+// benefits when using css variables: no need to recompile the admin style!
+// live preview of colors
+
+// benefits of 9 shades of gray
+// easier for module authors to choose a color
+// easier for module authors to stick to conventions
+
+@import "overrides.less";
+
+@import "general.less";
+@import "forms.less";
+@import "buttons.less";
+@import "notifications.less";
+@import "pagelist.less";
+@import "darkmode.less";

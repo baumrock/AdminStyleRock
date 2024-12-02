@@ -1,0 +1,139 @@
+/*
+GUIDE:
+Primary Color for action items (buttons and links)
+Input has dark gray border-bottom
+Inputfields and buttons are round. Guide lines are square.
+
+@ryan
+can we introduce an input-bg color that is used for checkboxes, radios,
+asm select, page select etc?
+*/
+
+/*
+##### Variables #####
+*/
+html {
+  // background color for inputs (radio, checkbox, asm select)
+  --rock-input-bg: var(--rock-gray-800);
+  --rock-fields-border: var(--rock-gray-100);
+}
+
+// remove padding from tabs in page edit screen
+// @ryan can we move that from core to reno?
+.uk-tab > * {
+  padding-left: 0;
+}
+
+// inputfield highlight to make them more visible
+// only action items are primary color (buttons, links)
+// inputfields, checkboxes, radios are dark gray
+.uk-input,
+.uk-select,
+.uk-textarea,
+.uk-checkbox,
+.uk-radio,
+.uk-button-default,
+.InputfieldTinyMCE .InputfieldTinyMCEInline:not(.fake-important),
+.Inputfield .selectize-control.single .selectize-input:not(.fake-important) {
+  border-radius: 5px;
+  border: 1px solid var(--rock-gray-400);
+}
+.uk-checkbox {
+  border-radius: 2px;
+}
+.uk-radio {
+  border-radius: 100%;
+}
+:not(.fake-important) {
+  .uk-radio:checked,
+  .uk-checkbox:checked,
+  .uk-checkbox:indeterminate {
+    background-color: var(--rock-input-bg);
+  }
+}
+.Inputfield .selectize-control.single .selectize-input:not(.fake-important) {
+  // make selectize have the same background as all other inputfields
+  background-color: white;
+}
+
+// make 10px gray borders around all inputfields
+ul.Inputfields {
+  row-gap: 10px;
+  padding: 10px;
+  background: var(--rock-gray-100);
+}
+.InputfieldContent > ul.Inputfields,
+.InputfieldWrapper > ul.Inputfields {
+  // remove padding for nested items
+  padding: 0;
+}
+.InputfieldRepeaterItem > .InputfieldContent > ul.Inputfields {
+  // add space inside repeater items
+  padding: 10px;
+  background: var(--rock-gray-100);
+}
+
+// repeater adjustments
+// no additional gap for repeaters
+.InputfieldRepeater > .InputfieldContent > ul.Inputfields {
+  row-gap: 0;
+}
+.Inputfields
+  .InputfieldRepeater
+  .InputfieldContent
+  .InputfieldRepeaterItem
+  > .InputfieldHeader {
+  outline: 0;
+  background-color: var(--rock-input-bg);
+}
+
+// page field
+.pw-content li.ui-state-default,
+.pw-content .ui-widget-content li.ui-state-default {
+  background: var(--rock-input-bg) !important;
+}
+
+// move notes closer to their inputfields
+// and make the border highlight less aggressive
+p.notes:not(.fake-important) {
+  margin-top: 10px;
+  border-left: 0;
+  padding-left: 5px;
+
+  // background is transparent black
+  // this makes it work both on white inputfields and on
+  // gray fieldsets, where gray-100 would not stand out at all
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+// make ASM list items gray
+// @ryan could we add a dedicated class for all these items?
+.Inputfields {
+  .asmListItem {
+    border: 0;
+  }
+  .asmListItemLabel {
+    background-color: var(--rock-input-bg);
+  }
+}
+.InputfieldPageListSelectMultiple > ol > li:not(.fake-important) {
+  border: 0;
+  background-color: var(--rock-input-bg);
+}
+
+// Toggle
+.InputfieldToggleGroup label:not(.InputfieldToggleCurrent) {
+  opacity: 0.5;
+}
+.InputfieldToggleCurrent {
+  outline: 2px solid #3e3e3e;
+  font-weight: bold;
+  z-index: 1;
+}
+
+// button colors from css variables
+.ui-button,
+.ui-button.ui-state-default,
+.ui-button.ui-state-hover {
+  background: var(--rock-primary);
+}

@@ -1,0 +1,59 @@
+/*
+##### Notifications #####
+
+GUIDE:
+For regular notifications we use a neutral gray to make it work with all primary colors.
+This color is slightly darker to make it stand out from the regular masthead.
+All notifications have the global dark text color for best visibility (no red text on red background).
+*/
+
+// background colors
+@alert-primary-background: var(--rock-gray-100);
+@alert-success-background: #c8e6c9;
+@alert-warning-background: #ffe0b2;
+@alert-danger-background: #ffcdd2;
+
+// text color is uniform for all alerts
+@alert-primary-color: @global-color;
+@alert-danger-color: @global-color;
+@alert-warning-color: @global-color;
+#notices {
+  .pw-notice-group-toggle,
+  i.fa {
+    color: @global-color;
+  }
+}
+
+// remove spacing: https://i.imgur.com/l6TJIIJ.png
+.pw-notices {
+  margin: 0;
+  > li {
+    margin: 0;
+    margin-top: 1px;
+  }
+}
+
+// vex dialogs
+.vex-dialog-button.vex-dialog-button-primary {
+  background: @global-primary-background !important;
+}
+
+// regular uikit notification popups
+.uk-notification-message {
+  color: @global-color;
+  border: 1px solid white;
+  box-shadow: 0 0px 30px rgba(0, 0, 0, 0.2);
+
+  &.uk-notification-message-primary {
+    background: @alert-primary-background;
+  }
+  &.uk-notification-message-warning {
+    background: @alert-warning-background;
+  }
+  &.uk-notification-message-success {
+    background: @alert-success-background;
+  }
+  &.uk-notification-message-danger {
+    background: @alert-danger-background;
+  }
+}

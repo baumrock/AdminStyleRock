@@ -1,0 +1,72 @@
+// Invert all elements on the body while attempting to not alter the hue substantially.
+html.asr-dark {
+  body {
+    filter: invert(93%) hue-rotate(180deg);
+  }
+
+  // Workarounds and optical adjustments.
+
+  // Firefox workaround: Set the background colour for the html
+  // element separately because, unlike other browsers, Firefox
+  // doesn’t apply the filter to the root element’s background.
+  background-color: #151515;
+
+  // Do not invert media (revert the invert).
+  img,
+  video,
+  iframe,
+  svg {
+    filter: invert(100%) hue-rotate(180deg);
+  }
+
+  // Videos running fullscreen are no longer affected by the
+  // filter on the body so we need to also unset the
+  // revert we applied earlier so we’re left with no filter again.
+  video:fullscreen {
+    filter: none;
+  }
+
+  // Improve contrast on icons.
+  .icon {
+    filter: invert(6%) hue-rotate(180deg);
+  }
+
+  svg {
+    filter: invert(6%);
+  }
+
+  // Re-enable code block backgrounds.
+  pre {
+    filter: invert(6%);
+  }
+
+  // Improve contrast on list item markers.
+  li::marker {
+    color: #666;
+  }
+
+  // Do not invert PW-Styles and other Elements like.
+  .uk-alert-danger,
+  input,
+  button,
+  .uk-checkbox,
+  .uk-button {
+    // filter: invert(100%) hue-rotate(180deg);
+  }
+}
+
+// toggle visibility classes
+.asr-show-dark {
+  display: none;
+}
+.asr-show-light {
+  display: initial;
+}
+html.asr-dark {
+  .asr-show-light {
+    display: none;
+  }
+  .asr-show-dark {
+    display: initial;
+  }
+}

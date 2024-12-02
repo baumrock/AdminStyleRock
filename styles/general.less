@@ -1,0 +1,22 @@
+// improve contrast of all texts
+@global-color: #111;
+@global-muted-color: #666;
+
+@global-primary-background: @rock-primary;
+@global-link-color: @rock-primary;
+@global-link-hover-color: lighten(@rock-primary, 5%);
+@base-selection-background: darken(@rock-primary, 5%);
+
+html {
+  --rock-global-color: @global-color;
+}
+
+.uk-tooltip-inner {
+  overflow-wrap: break-word;
+}
+
+// make links use css variables for live coloring
+a,
+.uk-link {
+  color: var(--rock-primary);
+}
