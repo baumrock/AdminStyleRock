@@ -39,10 +39,20 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     ];
   }
 
+  public function init(): void
+  {
+    // minify assets in /src folder to /dst (using RockDevTools)
+    if (wire()->config->rockdevtools) {
+      rockdevtools()->assets()->minify(
+        __DIR__ . '/src',
+        __DIR__ . '/dst',
+      );
+    }
+  }
+
   public function ready()
   {
     // add alfred style overrides
-    $this->addHookAfter('RockFrontend::addAlfredStyles', $this, 'addAlfredStyles');
     $this->addHookAfter('Page::render', $this, 'addCssVariables');
     if ($this->wire->user->isSuperuser()) $this->addKitchenSink();
 
@@ -89,23 +99,6 @@ class AdminStyleRock extends WireData implements Module, ConfigurableModule
     wire()->addHookAfter('AdminThemeUikit::renderFile', $this, "renderFile");
     wire()->addHookAfter("Pages::saved", $this, "addUploadedLogo");
     wire()->addHookAfter("ProcessPageEdit::buildForm", $this, "hideLogofield");
-  }
-
-  public function addAlfredStyles(HookEvent $event)
-  {
-    if ($this->wire->page->template == 'admin') return;
-    $rf = $event->object;
-
-    $name = 'head';
-    $version = $this->wire->modules->getModuleInfo($rf)['version'];
-    if (version_compare($version, '2.40.0', '>')) {
-      $name = 'rockfrontend';
-    }
-
-    $rf->styles($name)->add(__DIR__ . "/styles/_alfred.less");
-    if ($this->rockprimary) {
-      $rf->styles($name)->setVar('alfred-primary', $this->rockprimary);
-    }
   }
 
   protected function addCssVariables(HookEvent $event): void

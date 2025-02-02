@@ -1,0 +1,86 @@
+/* ##### Frontend Editing Overrides for ALFRED ##### */
+
+/**
+ * Default colors
+ * Use custom css on the body tag to override the colors!
+ */
+html {
+  --alfred-primary: #008f66;
+  --alfred-secondary: #313131;
+  --alfred-modal-background: #f8f8f8;
+}
+
+// pw modal
+html body {
+  .ui-dialog.ui-front {
+    // titlebar
+    .ui-dialog-titlebar {
+      background-color: var(--alfred-secondary);
+      .ui-dialog-title {
+        color: var(--alfred-modal);
+      }
+      i {
+        color: var(--alfred-modal);
+      }
+      button {
+        background-color: transparent;
+      }
+    }
+
+    // modal content
+    iframe.pw-modal-window {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      &.pw-modal-loaded {
+        opacity: 1;
+      }
+    }
+
+    // footer (with buttons)
+    .ui-dialog-buttonpane {
+      background: var(--alfred-modal-background);
+
+      .ui-button {
+        border: 0;
+        outline: 0;
+        background: var(--alfred-primary);
+        &:hover {
+          background: var(--alfred-primary);
+        }
+      }
+    }
+  }
+
+  // inline editing
+  .ui-widget.pw-edit-buttons {
+    background: var(--alfred-modal-background);
+    .ui-button {
+      border: 0;
+      outline: 0;
+    }
+    .pw-edit-save {
+      background: var(--alfred-primary);
+      &:hover {
+        background: var(--alfred-primary);
+      }
+    }
+    .pw-edit-cancel {
+      background: var(--alfred-secondary);
+      &:hover {
+        background: var(--alfred-secondary);
+      }
+    }
+    .pw-edit-saving,
+    .pw-edit-saved {
+      background: var(--alfred-secondary);
+    }
+  }
+
+  // vex dialog
+  .vex {
+    .vex-dialog-button-primary {
+      background-color: var(--alfred-primary);
+      color: white;
+    }
+  }
+}
