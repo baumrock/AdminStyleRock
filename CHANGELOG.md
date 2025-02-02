@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/baumrock/AdminStyleRock/compare/v1.6.0...v2.0.0) (2025-02-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* use new rockfrontend assets concept
+
+### Features
+
+* use new rockfrontend assets concept ([245555d](https://github.com/baumrock/AdminStyleRock/commit/245555d005913f5197a68d81547b313bad24c89e))
+
 ## [1.6.0](https://github.com/baumrock/AdminStyleRock/compare/v1.5.0...v1.6.0) (2024-12-02)
 
 
@@ -84,16 +95,4 @@
 ### Bug Fixes
 
 * update logo ([549e603](https://github.com/baumrock/AdminStyleRock/commit/549e603b62d8c0418d0f51c6f1eb7f0a6a99bb9e))
-
-## [1.3.0](https://github.com/baumrock/AdminStyleRock/compare/v1.2.1...v1.3.0) (2023-08-11)
-
-
-### Features
-
-* add upload field for admin logo ([aec5ccf](https://github.com/baumrock/AdminStyleRock/commit/aec5ccf87e2d2f10a9f4fa881e554e48369a6f23))
-
-
-### Bug Fixes
-
-* autoload also on frontend ([f824805](https://github.com/baumrock/AdminStyleRock/commit/f824805e1ad2c8326bb5d2d4cd2862defa728c2b))
 
