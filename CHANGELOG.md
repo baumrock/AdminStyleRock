@@ -1,3 +1,11 @@
+## [2.0.1](https://github.com/baumrock/AdminStyleRock/compare/v2.0.0...v2.0.1) (2025-03-12)
+
+
+### Bug Fixes
+
+* improve rockdevtools check ([95d2310](https://github.com/baumrock/AdminStyleRock/commit/95d2310f4aa7f773ac26a0bb5c47c166e0900e58))
+* remove border from page select field ([f1aa932](https://github.com/baumrock/AdminStyleRock/commit/f1aa9320ec59bac768526a1079748c6f93bfc265))
+
 ## [2.0.0](https://github.com/baumrock/AdminStyleRock/compare/v1.6.0...v2.0.0) (2025-02-02)
 
 
@@ -88,11 +96,4 @@
 ### Bug Fixes
 
 * don't reset logo on homepage save ([f62b63a](https://github.com/baumrock/AdminStyleRock/commit/f62b63aea76366a0c8c6639c3b68a999582f58c1))
-
-## [1.3.1](https://github.com/baumrock/AdminStyleRock/compare/v1.3.0...v1.3.1) (2023-11-02)
-
-
-### Bug Fixes
-
-* update logo ([549e603](https://github.com/baumrock/AdminStyleRock/commit/549e603b62d8c0418d0f51c6f1eb7f0a6a99bb9e))
 
