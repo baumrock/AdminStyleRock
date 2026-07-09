@@ -1,0 +1,40 @@
+/**
+ * Masthead alignment for UIkit 3.25+ / PW 3.0.255+
+ *
+ * Core now uses align-items: stretch on .uk-navbar-left/right with an 80px
+ * masthead. Nav items center themselves, but direct children like the logo,
+ * settings link, darkmode toggle and search form do not.
+ */
+
+#pw-masthead,
+#pw-masthead-mobile {
+  .pw-logo-link {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+  }
+}
+
+#pw-masthead {
+  .uk-navbar {
+    height: 100%;
+  }
+
+  .uk-navbar-left,
+  .uk-navbar-right {
+    align-items: center;
+  }
+
+  .uk-navbar-right {
+    > a.uk-link-reset,
+    > .darkmode-toggle {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .pw-search-form {
+    display: flex;
+    align-items: center;
+  }
+}
